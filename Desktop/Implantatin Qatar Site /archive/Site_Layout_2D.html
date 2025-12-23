@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Implantation 2D - Hearst Qatar Mining Site 90 MW</title>
+    <style>
+        :root {
+            --bg-dark: #0a0e17;
+            --bg-card: #111827;
+            --primary: #3b82f6;
+            --accent: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --text: #e2e8f0;
+            --text-muted: #94a3b8;
+            --border: #1e293b;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: var(--bg-dark);
+            color: var(--text);
+            min-height: 100vh;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 100%);
+            padding: 1.5rem 2rem;
+            border-bottom: 2px solid var(--primary);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .header h1 {
+            font-size: 1.8rem;
+            background: linear-gradient(90deg, #60a5fa, #34d399);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .header-stats {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .header-stat {
+            text-align: center;
+        }
+        
+        .header-stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent);
+        }
+        
+        .header-stat-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .main-container {
+            display: grid;
+            grid-template-columns: 280px 1fr 320px;
+            gap: 0;
+            min-height: calc(100vh - 80px);
+        }
+        
+        @media (max-width: 1200px) {
+            .main-container {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Left Panel - Legend */
+        .legend-panel {
+            background: var(--bg-card);
+            border-right: 1px solid var(--border);
+            padding: 1.5rem;
+            overflow-y: auto;
+        }
+        
+        .legend-title {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--border);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .legend-item:hover {
+            background: rgba(59, 130, 246, 0.1);
+            padding-left: 0.5rem;
+        }
+        
+        .legend-color {
+            width: 24px;
+            height: 24px;
+            border-radius: 4px;
+            flex-shrink: 0;
+        }
+        
+        .legend-info {
+            flex: 1;
+        }
+        
+        .legend-name {
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        
+        .legend-desc {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+        
+        /* Center - Site Map */
+        .map-container {
+            background: linear-gradient(180deg, #0f172a 0%, #1a1a2e 100%);
+            padding: 2rem;
+            overflow: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .map-title {
+            font-size: 1.2rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        
+        .site-map {
+            position: relative;
+            width: 900px;
+            height: 700px;
+            background: linear-gradient(135deg, #1a2744 0%, #0d1b2a 100%);
+            border: 3px solid var(--primary);
+            border-radius: 12px;
+            box-shadow: 0 0 60px rgba(59, 130, 246, 0.2);
+        }
+        
+        .zone {
+            position: absolute;
+            border-radius: 6px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-align: center;
+            transition: all 0.3s;
+            cursor: pointer;
+            overflow: hidden;
+        }
+        
+        .zone:hover {
+            transform: scale(1.02);
+            z-index: 100;
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
+        }
+        
+        .zone-label {
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-bottom: 2px;
+        }
+        
+        .zone-sublabel {
+            font-size: 0.7rem;
+            opacity: 0.9;
+        }
+        
+        .zone-value {
+            font-size: 1rem;
+            font-weight: 800;
+            margin-top: 4px;
+        }
+        
+        /* Zone Colors */
+        .zone-gate {
+            background: linear-gradient(135deg, #7c3aed 0%, #4c1d95 100%);
+            border: 2px solid #a78bfa;
+        }
+        
+        .zone-admin {
+            background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+            border: 2px solid #60a5fa;
+        }
+        
+        .zone-hv {
+            background: linear-gradient(135deg, #dc2626 0%, #7f1d1d 100%);
+            border: 2px solid #f87171;
+        }
+        
+        .zone-maintenance {
+            background: linear-gradient(135deg, #d97706 0%, #78350f 100%);
+            border: 2px solid #fbbf24;
+        }
+        
+        .zone-containers {
+            background: linear-gradient(135deg, #059669 0%, #064e3b 100%);
+            border: 2px solid #34d399;
+        }
+        
+        .zone-road {
+            background: linear-gradient(90deg, #334155 0%, #475569 50%, #334155 100%);
+            border: 1px dashed #64748b;
+        }
+        
+        .zone-substation {
+            background: linear-gradient(135deg, #be185d 0%, #831843 100%);
+            border: 2px solid #f472b6;
+        }
+        
+        /* Container Grid Inside Zones */
+        .container-grid {
+            display: grid;
+            gap: 3px;
+            padding: 8px;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .container-unit {
+            background: linear-gradient(135deg, #10b981 0%, #047857 100%);
+            border: 1px solid #34d399;
+            border-radius: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.5rem;
+            color: white;
+            font-weight: 600;
+        }
+        
+        /* Right Panel - Details */
+        .details-panel {
+            background: var(--bg-card);
+            border-left: 1px solid var(--border);
+            padding: 1.5rem;
+            overflow-y: auto;
+        }
+        
+        .details-title {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .details-section {
+            background: rgba(0,0,0,0.3);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border: 1px solid var(--border);
+        }
+        
+        .details-section h4 {
+            font-size: 0.85rem;
+            color: var(--primary);
+            margin-bottom: 0.75rem;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 0.5rem;
+        }
+        
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.4rem 0;
+            font-size: 0.8rem;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        
+        .detail-label {
+            color: var(--text-muted);
+        }
+        
+        .detail-value {
+            font-weight: 600;
+            color: var(--accent);
+        }
+        
+        /* Compass */
+        .compass {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background: rgba(0,0,0,0.6);
+            border-radius: 50%;
+            border: 2px solid var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+        
+        /* Scale Bar */
+        .scale-bar {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(0,0,0,0.6);
+            padding: 8px 16px;
+            border-radius: 6px;
+            border: 1px solid var(--border);
+        }
+        
+        .scale-bar-line {
+            width: 100px;
+            height: 4px;
+            background: var(--text);
+            margin-bottom: 4px;
+            position: relative;
+        }
+        
+        .scale-bar-line::before,
+        .scale-bar-line::after {
+            content: '';
+            position: absolute;
+            width: 2px;
+            height: 10px;
+            background: var(--text);
+            top: -3px;
+        }
+        
+        .scale-bar-line::before { left: 0; }
+        .scale-bar-line::after { right: 0; }
+        
+        .scale-bar-text {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            text-align: center;
+        }
+        
+        /* Dimensions annotations */
+        .dimension {
+            position: absolute;
+            font-size: 0.65rem;
+            color: var(--warning);
+            background: rgba(0,0,0,0.7);
+            padding: 2px 6px;
+            border-radius: 3px;
+            white-space: nowrap;
+        }
+        
+        /* Info tooltip */
+        .tooltip {
+            position: fixed;
+            background: var(--bg-card);
+            border: 2px solid var(--primary);
+            border-radius: 8px;
+            padding: 1rem;
+            max-width: 280px;
+            z-index: 1000;
+            display: none;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+        }
+        
+        .tooltip.active {
+            display: block;
+        }
+        
+        .tooltip h5 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .tooltip p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin: 0.25rem 0;
+        }
+        
+        /* Footer */
+        .footer {
+            background: var(--bg-card);
+            border-top: 1px solid var(--border);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .footer-info {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+        
+        .footer-actions {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.2s;
+        }
+        
+        .btn:hover {
+            background: #2563eb;
+            transform: translateY(-1px);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+        }
+        
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Animated elements */
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+        
+        .zone-hv::after {
+            content: '⚡';
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            font-size: 1rem;
+            animation: pulse 2s infinite;
+        }
+        
+        /* Road markings */
+        .road-marking {
+            position: absolute;
+            background: #fbbf24;
+            opacity: 0.6;
+        }
+    </style>
+</head>
+<body>
+
+<header class="header">
+    <h1>🗺️ Implantation 2D - Hearst Qatar Mining Site</h1>
+    <div class="header-stats">
+        <div class="header-stat">
+            <div class="header-stat-value">6.4 ha</div>
+            <div class="header-stat-label">Surface Totale</div>
+        </div>
+        <div class="header-stat">
+            <div class="header-stat-value">58</div>
+            <div class="header-stat-label">Containers HD5</div>
+        </div>
+        <div class="header-stat">
+            <div class="header-stat-value">87.7 MW</div>
+            <div class="header-stat-label">IT Load</div>
+        </div>
+        <div class="header-stat">
+            <div class="header-stat-value">5.98 EH/s</div>
+            <div class="header-stat-label">Hashrate</div>
+        </div>
+    </div>
+</header>
+
+<div class="main-container">
+    <!-- Left Panel - Legend -->
+    <aside class="legend-panel">
+        <h3 class="legend-title">Légende du Site</h3>
+        
+        <div class="legend-item" data-zone="gate">
+            <div class="legend-color" style="background: linear-gradient(135deg, #7c3aed, #4c1d95);"></div>
+            <div class="legend-info">
+                <div class="legend-name">Entrée / Sécurité</div>
+                <div class="legend-desc">Portail, guérite, parking</div>
+            </div>
+        </div>
+        
+        <div class="legend-item" data-zone="admin">
+            <div class="legend-color" style="background: linear-gradient(135deg, #2563eb, #1e40af);"></div>
+            <div class="legend-info">
+                <div class="legend-name">Administration</div>
+                <div class="legend-desc">Bureaux, salle de contrôle</div>
+            </div>
+        </div>
+        
+        <div class="legend-item" data-zone="hv">
+            <div class="legend-color" style="background: linear-gradient(135deg, #dc2626, #7f1d1d);"></div>
+            <div class="legend-info">
+                <div class="legend-name">Sous-station HV/MV</div>
+                <div class="legend-desc">132/33 kV • 2×100 MVA</div>
+            </div>
+        </div>
+        
+        <div class="legend-item" data-zone="maintenance">
+            <div class="legend-color" style="background: linear-gradient(135deg, #d97706, #78350f);"></div>
+            <div class="legend-info">
+                <div class="legend-name">Maintenance</div>
+                <div class="legend-desc">Entrepôt, ateliers</div>
+            </div>
+        </div>
+        
+        <div class="legend-item" data-zone="containers">
+            <div class="legend-color" style="background: linear-gradient(135deg, #059669, #064e3b);"></div>
+            <div class="legend-info">
+                <div class="legend-name">Zones Containers</div>
+                <div class="legend-desc">58× ANTSPACE HD5</div>
+            </div>
+        </div>
+        
+        <div class="legend-item" data-zone="substation">
+            <div class="legend-color" style="background: linear-gradient(135deg, #be185d, #831843);"></div>
+            <div class="legend-info">
+                <div class="legend-name">Sous-stations MV/LV</div>
+                <div class="legend-desc">29× 3.75 MVA</div>
+            </div>
+        </div>
+        
+        <div class="legend-item" data-zone="road">
+            <div class="legend-color" style="background: linear-gradient(90deg, #334155, #475569);"></div>
+            <div class="legend-info">
+                <div class="legend-name">Voies d'accès</div>
+                <div class="legend-desc">8m largeur, accès pompiers</div>
+            </div>
+        </div>
+        
+        <h3 class="legend-title" style="margin-top: 2rem;">Spécifications</h3>
+        
+        <div class="legend-item">
+            <div class="legend-info">
+                <div class="legend-name">Container ANTSPACE HD5</div>
+                <div class="legend-desc">12.2m × 2.44m × 5.8m (H)</div>
+            </div>
+        </div>
+        
+        <div class="legend-item">
+            <div class="legend-info">
+                <div class="legend-name">Espacement containers</div>
+                <div class="legend-desc">6m minimum entre rangées</div>
+            </div>
+        </div>
+        
+        <div class="legend-item">
+            <div class="legend-info">
+                <div class="legend-name">Séparation transfo HV</div>
+                <div class="legend-desc">15m entre unités 100 MVA</div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Center - Site Map -->
+    <main class="map-container">
+        <h2 class="map-title">Plan du Site - ~300m × 200m (~64,000 m²)</h2>
+        
+        <div class="site-map" id="siteMap">
+            <!-- Compass -->
+            <div class="compass">🧭</div>
+            
+            <!-- Scale Bar -->
+            <div class="scale-bar">
+                <div class="scale-bar-line"></div>
+                <div class="scale-bar-text">≈ 50 m</div>
+            </div>
+            
+            <!-- Gate / Security -->
+            <div class="zone zone-gate" style="left: 20px; top: 20px; width: 80px; height: 60px;" 
+                 data-info="Entrée principale|Guérite 24/7|Contrôle d'accès|Parking visiteurs">
+                <div class="zone-label">GATE</div>
+                <div class="zone-sublabel">Sécurité</div>
+            </div>
+            
+            <!-- Admin / Control Room -->
+            <div class="zone zone-admin" style="left: 120px; top: 20px; width: 160px; height: 80px;"
+                 data-info="Administration|Salle de contrôle 24/7|Bureaux (15 postes)|Salle de réunion|Cafétéria">
+                <div class="zone-label">ADMIN / CONTROL</div>
+                <div class="zone-sublabel">1,000 m²</div>
+            </div>
+            
+            <!-- Road Top -->
+            <div class="zone zone-road" style="left: 300px; top: 20px; width: 580px; height: 30px;">
+                <span style="font-size: 0.6rem;">ROUTE PRINCIPALE 8m</span>
+            </div>
+            
+            <!-- HV/MV Substation -->
+            <div class="zone zone-hv" style="left: 550px; top: 60px; width: 200px; height: 120px;"
+                 data-info="Sous-station HV/MV|132 kV → 33 kV|2× 100 MVA (N+1)|GIS 40 kA|Transformateurs huile">
+                <div class="zone-label">HV/MV SUBSTATION</div>
+                <div class="zone-sublabel">132/33 kV</div>
+                <div class="zone-value">2×100 MVA</div>
+            </div>
+            
+            <!-- Maintenance -->
+            <div class="zone zone-maintenance" style="left: 20px; top: 100px; width: 100px; height: 120px;"
+                 data-info="Maintenance|Entrepôt pièces|Atelier réparation|Centre ripper|2,400 m²">
+                <div class="zone-label">MAINT.</div>
+                <div class="zone-sublabel">Entrepôt</div>
+                <div class="zone-value">2,400 m²</div>
+            </div>
+            
+            <!-- Road Left Vertical -->
+            <div class="zone zone-road" style="left: 130px; top: 100px; width: 30px; height: 580px;">
+            </div>
+            
+            <!-- 33 kV Distribution Label -->
+            <div class="dimension" style="left: 170px; top: 235px;">33 kV Ring →</div>
+            
+            <!-- ZONE 1 - 20 containers -->
+            <div class="zone zone-containers" style="left: 170px; top: 260px; width: 200px; height: 200px;"
+                 data-info="Zone 1|20 containers HD5|30.2 MW nominal|10× transfos 3.75 MVA|Dry coolers intégrés">
+                <div class="zone-label">ZONE 1</div>
+                <div class="zone-sublabel">20 containers</div>
+                <div class="zone-value">30.2 MW</div>
+                <div style="font-size: 0.6rem; margin-top: 8px;">6,160 mineurs</div>
+            </div>
+            
+            <!-- Road between Zone 1 & 2 -->
+            <div class="zone zone-road" style="left: 380px; top: 260px; width: 30px; height: 420px;">
+            </div>
+            
+            <!-- ZONE 2 - 19 containers -->
+            <div class="zone zone-containers" style="left: 420px; top: 260px; width: 190px; height: 200px;"
+                 data-info="Zone 2|19 containers HD5|28.7 MW nominal|10× transfos 3.75 MVA|Dry coolers intégrés">
+                <div class="zone-label">ZONE 2</div>
+                <div class="zone-sublabel">19 containers</div>
+                <div class="zone-value">28.7 MW</div>
+                <div style="font-size: 0.6rem; margin-top: 8px;">5,852 mineurs</div>
+            </div>
+            
+            <!-- Road between Zone 2 & 3 -->
+            <div class="zone zone-road" style="left: 620px; top: 260px; width: 30px; height: 420px;">
+            </div>
+            
+            <!-- ZONE 3 - 19 containers -->
+            <div class="zone zone-containers" style="left: 660px; top: 260px; width: 190px; height: 200px;"
+                 data-info="Zone 3|19 containers HD5|28.7 MW nominal|9× transfos 3.75 MVA|Dry coolers intégrés">
+                <div class="zone-label">ZONE 3</div>
+                <div class="zone-sublabel">19 containers</div>
+                <div class="zone-value">28.7 MW</div>
+                <div style="font-size: 0.6rem; margin-top: 8px;">5,852 mineurs</div>
+            </div>
+            
+            <!-- MV/LV Substations markers -->
+            <div class="zone zone-substation" style="left: 170px; top: 470px; width: 60px; height: 40px;"
+                 data-info="Sous-stations MV/LV Zone 1|10× 3.75 MVA|33 kV → 400V|Cast resin dry-type">
+                <div class="zone-sublabel">10× MV/LV</div>
+            </div>
+            
+            <div class="zone zone-substation" style="left: 420px; top: 470px; width: 60px; height: 40px;"
+                 data-info="Sous-stations MV/LV Zone 2|10× 3.75 MVA|33 kV → 400V|Cast resin dry-type">
+                <div class="zone-sublabel">10× MV/LV</div>
+            </div>
+            
+            <div class="zone zone-substation" style="left: 660px; top: 470px; width: 60px; height: 40px;"
+                 data-info="Sous-stations MV/LV Zone 3|9× 3.75 MVA|33 kV → 400V|Cast resin dry-type">
+                <div class="zone-sublabel">9× MV/LV</div>
+            </div>
+            
+            <!-- Additional container rows -->
+            <div class="zone zone-containers" style="left: 170px; top: 520px; width: 200px; height: 140px; opacity: 0.7;"
+                 data-info="Extension Zone 1|Rangées supplémentaires">
+            </div>
+            
+            <div class="zone zone-containers" style="left: 420px; top: 520px; width: 190px; height: 140px; opacity: 0.7;"
+                 data-info="Extension Zone 2|Rangées supplémentaires">
+            </div>
+            
+            <div class="zone zone-containers" style="left: 660px; top: 520px; width: 190px; height: 140px; opacity: 0.7;"
+                 data-info="Extension Zone 3|Rangées supplémentaires">
+            </div>
+            
+            <!-- Bottom road -->
+            <div class="zone zone-road" style="left: 20px; top: 670px; width: 860px; height: 25px;">
+                <span style="font-size: 0.6rem;">ROUTE PÉRIPHÉRIQUE 8m • ACCÈS POMPIERS</span>
+            </div>
+            
+            <!-- Dimensions -->
+            <div class="dimension" style="left: 450px; bottom: 8px;">~300 m</div>
+            <div class="dimension" style="right: 8px; top: 350px; transform: rotate(90deg);">~200 m</div>
+            
+            <!-- Power flow arrows -->
+            <div style="position: absolute; left: 540px; top: 120px; color: #f87171; font-size: 1.5rem;">→</div>
+            <div style="position: absolute; left: 400px; top: 240px; color: #fbbf24; font-size: 1.2rem;">↓</div>
+            <div style="position: absolute; left: 530px; top: 240px; color: #fbbf24; font-size: 1.2rem;">↓</div>
+            <div style="position: absolute; left: 720px; top: 240px; color: #fbbf24; font-size: 1.2rem;">↓</div>
+        </div>
+    </main>
+
+    <!-- Right Panel - Details -->
+    <aside class="details-panel">
+        <h3 class="details-title">Détails du Site</h3>
+        
+        <div class="details-section">
+            <h4>📐 Dimensions Générales</h4>
+            <div class="detail-row">
+                <span class="detail-label">Surface totale</span>
+                <span class="detail-value">64,000 m² (6.4 ha)</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Longueur × Largeur</span>
+                <span class="detail-value">~300m × ~200m</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Zone containers</span>
+                <span class="detail-value">45,000 m²</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Voies d'accès</span>
+                <span class="detail-value">~8,000 m²</span>
+            </div>
+        </div>
+        
+        <div class="details-section">
+            <h4>⚡ Infrastructure Électrique</h4>
+            <div class="detail-row">
+                <span class="detail-label">Connexion réseau</span>
+                <span class="detail-value">132 kV / 150 MVA</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Transfos HV/MV</span>
+                <span class="detail-value">2× 100 MVA</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Distribution MV</span>
+                <span class="detail-value">33 kV Ring</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Transfos MV/LV</span>
+                <span class="detail-value">29× 3.75 MVA</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Sous-station HV</span>
+                <span class="detail-value">4,000 m²</span>
+            </div>
+        </div>
+        
+        <div class="details-section">
+            <h4>📦 Zones Containers</h4>
+            <div class="detail-row">
+                <span class="detail-label">Zone 1</span>
+                <span class="detail-value">20 HD5 • 30.2 MW</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Zone 2</span>
+                <span class="detail-value">19 HD5 • 28.7 MW</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Zone 3</span>
+                <span class="detail-value">19 HD5 • 28.7 MW</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Total</span>
+                <span class="detail-value" style="color: #34d399;">58 HD5 • 87.7 MW</span>
+            </div>
+        </div>
+        
+        <div class="details-section">
+            <h4>🚗 Accès & Circulation</h4>
+            <div class="detail-row">
+                <span class="detail-label">Largeur routes</span>
+                <span class="detail-value">8 m minimum</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Rayon de virage</span>
+                <span class="detail-value">12 m (pompiers)</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Accès grue</span>
+                <span class="detail-value">6 m par côté</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Espacement HD5</span>
+                <span class="detail-value">6 m entre rangées</span>
+            </div>
+        </div>
+        
+        <div class="details-section">
+            <h4>❄️ Refroidissement</h4>
+            <div class="detail-row">
+                <span class="detail-label">Type</span>
+                <span class="detail-value">Intégré HD5</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Dry coolers</span>
+                <span class="detail-value">58 (1:1 ratio)</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Débit total</span>
+                <span class="detail-value">4,060 m³/h</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Système central</span>
+                <span class="detail-value" style="color: #10b981;">NON REQUIS ✓</span>
+            </div>
+        </div>
+    </aside>
+</div>
+
+<footer class="footer">
+    <div class="footer-info">
+        <strong>Projet:</strong> Hearst Qatar Mining Site | 
+        <strong>Révision:</strong> 5.0-OFFICIAL | 
+        <strong>Date:</strong> Décembre 2024
+    </div>
+    <div class="footer-actions">
+        <button class="btn btn-outline" onclick="window.print()">🖨️ Imprimer</button>
+        <a href="Engineering_Architecture_200MW_Site.html" class="btn">📄 Document Complet</a>
+    </div>
+</footer>
+
+<!-- Tooltip -->
+<div class="tooltip" id="tooltip"></div>
+
+<script>
+    // Zone hover tooltip
+    const zones = document.querySelectorAll('.zone[data-info]');
+    const tooltip = document.getElementById('tooltip');
+    
+    zones.forEach(zone => {
+        zone.addEventListener('mouseenter', (e) => {
+            const info = zone.dataset.info.split('|');
+            let html = `<h5>${info[0]}</h5>`;
+            info.slice(1).forEach(item => {
+                html += `<p>• ${item}</p>`;
+            });
+            tooltip.innerHTML = html;
+            tooltip.classList.add('active');
+        });
+        
+        zone.addEventListener('mousemove', (e) => {
+            tooltip.style.left = (e.clientX + 15) + 'px';
+            tooltip.style.top = (e.clientY + 15) + 'px';
+        });
+        
+        zone.addEventListener('mouseleave', () => {
+            tooltip.classList.remove('active');
+        });
+    });
+    
+    // Legend item hover highlighting
+    const legendItems = document.querySelectorAll('.legend-item[data-zone]');
+    
+    legendItems.forEach(item => {
+        item.addEventListener('mouseenter', () => {
+            const zoneClass = `zone-${item.dataset.zone}`;
+            document.querySelectorAll(`.${zoneClass}`).forEach(z => {
+                z.style.boxShadow = '0 0 30px rgba(255, 255, 255, 0.5)';
+                z.style.zIndex = '100';
+            });
+        });
+        
+        item.addEventListener('mouseleave', () => {
+            document.querySelectorAll('.zone').forEach(z => {
+                z.style.boxShadow = '';
+                z.style.zIndex = '';
+            });
+        });
+    });
+</script>
+
+</body>
+</html>
+
+

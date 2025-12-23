@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Master — Hearst Qatar | 58× HD5 (S21XP Hydro)</title>
+  <script src="assets/chart.umd.min.js"></script>
+  <style>
+    :root{
+      --bg:#0b1220;
+      --card:#111b2e;
+      --muted:#93a4c7;
+      --text:#e7eefc;
+      --brand:#4f8cff;
+      --ok:#22c55e;
+      --warn:#f59e0b;
+      --bad:#ef4444;
+      --border:rgba(255,255,255,.08);
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial;background:linear-gradient(180deg,#081022 0%,#0b1220 40%,#070b14 100%);color:var(--text)}
+    a{color:inherit}
+    .topbar{
+      position:sticky;top:0;z-index:50;
+      background:rgba(11,18,32,.92);backdrop-filter: blur(8px);
+      border-bottom:1px solid var(--border);
+      padding:14px 18px;display:flex;gap:14px;align-items:center;justify-content:space-between;flex-wrap:wrap;
+    }
+    .brand{display:flex;gap:12px;align-items:center}
+    .brand h1{font-size:16px;margin:0;font-weight:800;letter-spacing:.4px}
+    .pill{font-size:12px;color:var(--muted);border:1px solid var(--border);padding:6px 10px;border-radius:999px}
+    .nav{display:flex;gap:10px;flex-wrap:wrap}
+    .nav a{font-size:12px;text-decoration:none;color:var(--muted);border:1px solid var(--border);padding:7px 10px;border-radius:10px}
+    .nav a:hover{color:var(--text);border-color:rgba(79,140,255,.5)}
+    .container{max-width:1240px;margin:0 auto;padding:18px}
+    .grid{display:grid;gap:14px}
+    .grid.cols-4{grid-template-columns:repeat(4,minmax(0,1fr))}
+    .grid.cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+    @media (max-width: 1000px){.grid.cols-4{grid-template-columns:repeat(2,minmax(0,1fr))}.grid.cols-2{grid-template-columns:1fr}}
+    .card{
+      background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+      border:1px solid var(--border);border-radius:14px;padding:14px 14px 12px;
+    }
+    .card h2{margin:0 0 8px;font-size:14px;color:#cfe0ff;letter-spacing:.4px;text-transform:uppercase}
+    .kpi{display:flex;justify-content:space-between;align-items:flex-end;gap:10px}
+    .kpi .v{font-size:28px;font-weight:900;letter-spacing:.2px}
+    .kpi .s{font-size:12px;color:var(--muted)}
+    .badge{display:inline-block;font-size:11px;padding:4px 8px;border-radius:999px;border:1px solid var(--border);color:var(--muted)}
+    .badge.ok{color:#b7f7c7;border-color:rgba(34,197,94,.35)}
+    .badge.warn{color:#ffe0aa;border-color:rgba(245,158,11,.35)}
+    .badge.bad{color:#ffb4b4;border-color:rgba(239,68,68,.35)}
+    table{width:100%;border-collapse:collapse;overflow:hidden;border-radius:12px;border:1px solid var(--border)}
+    th,td{padding:10px 10px;border-bottom:1px solid var(--border);text-align:left;font-size:13px}
+    th{color:#cfe0ff;background:rgba(79,140,255,.08)}
+    tr:last-child td{border-bottom:none}
+    .muted{color:var(--muted)}
+    .note{font-size:12px;color:var(--muted);line-height:1.45}
+    .two{display:grid;grid-template-columns:1.2fr .8fr;gap:14px}
+    @media (max-width: 1000px){.two{grid-template-columns:1fr}}
+    .callout{border-left:4px solid var(--brand);padding:10px 12px;border-radius:10px;background:rgba(79,140,255,.08);border:1px solid rgba(79,140,255,.22)}
+    .callout strong{color:#dce9ff}
+    .sep{height:1px;background:var(--border);margin:14px 0}
+    .small{font-size:12px}
+    .mono{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace}
+    .layout{
+      position:relative;height:520px;border-radius:14px;border:1px solid var(--border);
+      background:linear-gradient(135deg,#0f1c33 0%,#0b1426 60%,#091022 100%);overflow:hidden;
+    }
+    .z{position:absolute;border-radius:10px;border:1px solid rgba(255,255,255,.18);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:10px}
+    .z .t{font-weight:900}
+    .z .d{font-size:12px;color:rgba(255,255,255,.85)}
+    .z .p{font-size:14px;font-weight:900;margin-top:6px}
+    .z.hv{background:linear-gradient(135deg,rgba(239,68,68,.25),rgba(239,68,68,.08));border-color:rgba(239,68,68,.5)}
+    .z.admin{background:linear-gradient(135deg,rgba(79,140,255,.25),rgba(79,140,255,.08));border-color:rgba(79,140,255,.5)}
+    .z.maint{background:linear-gradient(135deg,rgba(245,158,11,.25),rgba(245,158,11,.08));border-color:rgba(245,158,11,.5)}
+    .z.cont{background:linear-gradient(135deg,rgba(34,197,94,.25),rgba(34,197,94,.08));border-color:rgba(34,197,94,.5)}
+    .z.road{background:rgba(148,163,184,.10);border-style:dashed}
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <div style="width:10px;height:10px;border-radius:3px;background:var(--brand)"></div>
+      <h1>MASTER — Hearst Qatar | 58× ANTSPACE HD5 | S21XP Hydro</h1>
+      <span class="pill">Spec verrouillée: 308 slots • 473 TH/s • 5676 W • 1.765 MW = MAX (cooling inclus)</span>
+    </div>
+    <nav class="nav">
+      <a href="#dashboard">Dashboard</a>
+      <a href="#inputs">Inputs</a>
+      <a href="#calculs">Calculs</a>
+      <a href="#electrique">HT/MT/BT</a>
+      <a href="#cooling">Cooling</a>
+      <a href="#layout">Implantation 2D</a>
+      <a href="#pricing">Pricing</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section id="dashboard" class="grid cols-4">
+      <div class="card">
+        <h2>Containers</h2>
+        <div class="kpi">
+          <div class="v" id="kpi-containers">58</div>
+          <div class="s">ANTSPACE HD5</div>
+        </div>
+      </div>
+      <div class="card">
+        <h2>Mineurs</h2>
+        <div class="kpi">
+          <div class="v" id="kpi-miners">17,864</div>
+          <div class="s">308 / container</div>
+        </div>
+      </div>
+      <div class="card">
+        <h2>Hashrate total</h2>
+        <div class="kpi">
+          <div class="v" id="kpi-hashrate">8.45</div>
+          <div class="s">EH/s (473 TH/s)</div>
+        </div>
+      </div>
+      <div class="card">
+        <h2>Puissance container</h2>
+        <div class="kpi">
+          <div class="v" id="kpi-pc">1.765</div>
+          <div class="s">MW / container (MAX)</div>
+        </div>
+      </div>
+    </section>
+
+    <div class="sep"></div>
+
+    <section id="inputs" class="two">
+      <div class="card">
+        <h2>Inputs (verrouillés)</h2>
+        <table>
+          <thead><tr><th>Paramètre</th><th>Valeur</th><th>Note</th></tr></thead>
+          <tbody>
+            <tr><td>Containers</td><td><strong>58</strong></td><td class="muted">HD5 40ft</td></tr>
+            <tr><td>Slots / container</td><td><strong>308</strong></td><td class="muted">S21XP Hydro</td></tr>
+            <tr><td>Hashrate / mineur</td><td><strong>473 TH/s</strong></td><td class="muted">S21XP Hydro</td></tr>
+            <tr><td>Puissance / mineur</td><td><strong>5,676 W</strong></td><td class="muted">S21XP Hydro</td></tr>
+            <tr><td>Puissance / container</td><td><strong>1.765 MW</strong></td><td class="muted">MAX • cooling inclus</td></tr>
+          </tbody>
+        </table>
+        <p class="note" style="margin-top:10px">
+          La valeur 1,765 MW/container est traitée comme <strong>MAX</strong>. Le “nominal” sera défini au moment du design d’exploitation (profil été/Qatar, derating, stratégie throttling).
+        </p>
+      </div>
+
+      <div class="card">
+        <h2>Checks cohérence</h2>
+        <div class="callout">
+          <div><strong>Check mineurs vs container:</strong> 308×5676 W = <span class="mono" id="chk-miners-p">1,748 kW</span></div>
+          <div class="muted small">Donc “auxiliaires inclus” = 1,765 − 1,748 = <span class="mono" id="chk-aux">16.8 kW</span></div>
+        </div>
+        <div style="margin-top:10px" class="note">
+          Si tu as une valeur “ventilos = 24 kW/container”, elle n’est pas compatible avec 5,676 W &amp; 308 slots à 1,765 MW max.
+          On la traitera comme <strong>valeur max</strong> ou on réconciliera avec la datasheet.
+        </div>
+        <div style="margin-top:12px">
+          <span class="badge ok">1765 = MAX</span>
+          <span class="badge warn">Nominal à figer</span>
+          <span class="badge warn">PF à confirmer</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="sep"></div>
+
+    <section id="calculs" class="two">
+      <div class="card">
+        <h2>Calculs principaux (max)</h2>
+        <table>
+          <thead><tr><th>Calcul</th><th>Formule</th><th>Résultat</th></tr></thead>
+          <tbody>
+            <tr><td>Total mineurs</td><td class="mono">58 × 308</td><td><strong>17,864</strong></td></tr>
+            <tr><td>Hashrate total</td><td class="mono">17,864 × 473 TH/s</td><td><strong>8.45 EH/s</strong></td></tr>
+            <tr><td>IT (mineurs)</td><td class="mono">17,864 × 5.676 kW</td><td><strong>101.40 MW</strong></td></tr>
+            <tr><td>Containers (au point d’alim)</td><td class="mono">58 × 1.765 MW</td><td><strong>102.37 MW</strong></td></tr>
+          </tbody>
+        </table>
+        <p class="note" style="margin-top:10px">
+          “Containers (au point d’alim)” inclut le cooling interne (confirmé). “IT (mineurs)” est calculé à partir de 5,676 W/mineur.
+        </p>
+      </div>
+
+      <div class="card">
+        <h2>Diagrammes (auto)</h2>
+        <div style="height:240px"><canvas id="chartPower"></canvas></div>
+        <div style="height:240px;margin-top:12px"><canvas id="chartHash"></canvas></div>
+      </div>
+    </section>
+
+    <div class="sep"></div>
+
+    <section id="electrique" class="two">
+      <div class="card">
+        <h2>Architecture électrique (à figer sur nominal)</h2>
+        <p class="note">
+          Comme 1.765 MW est <strong>MAX</strong>, le sizing N+1 “réel” HV/MV dépend du <strong>nominal d’exploitation</strong>.
+          En pratique, 2×100 MVA est OK si la charge nominale en MVA &lt; 100 MVA (PF &amp; marges incluses). Sinon, on passe à 2×125 MVA.
+        </p>
+        <table style="margin-top:10px">
+          <thead><tr><th>Niveau</th><th>Valeur</th><th>Statut</th></tr></thead>
+          <tbody>
+            <tr><td>Grid</td><td><strong>132 kV</strong></td><td><span class="badge warn">à valider Kahramaa</span></td></tr>
+            <tr><td>Distribution MV</td><td><strong>33 kV ring (RMU)</strong></td><td><span class="badge warn">à valider</span></td></tr>
+            <tr><td>HV/MV</td><td><strong>2×100 MVA (N+1)</strong></td><td><span class="badge warn">OK si nominal &lt;~ 98 MW</span></td></tr>
+            <tr><td>MV/LV</td><td><strong>29×3.75 MVA</strong> (2 containers / transfo)</td><td><span class="badge warn">charge élevée en MAX</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card">
+        <h2>SLD simplifié</h2>
+        <pre class="mono" style="background:rgba(0,0,0,.25);border:1px solid var(--border);padding:12px;border-radius:12px;overflow:auto;margin:0">
+132 kV (Kahramaa)
+   |
+   |  HV/MV Transformers (N+1)
+   +-- T1 ~100 MVA 132/33 kV
+   +-- T2 ~100 MVA 132/33 kV
+          |
+          +---- 33 kV Ring (RMU) ---- Zones containers
+                   |
+                   +-- 29× MV/LV 3.75 MVA (33 kV → 400V)
+                           |
+                           +-- Containers HD5 (308× S21XP Hydro / container)
+        </pre>
+        <p class="note" style="margin-top:10px">
+          Les protections, niveaux de court-circuit et sélectivité seront fixés par étude IEC 60909 + coordination (phase design détaillé).
+        </p>
+      </div>
+    </section>
+
+    <div class="sep"></div>
+
+    <section id="cooling" class="two">
+      <div class="card">
+        <h2>Cooling — intégré (confirmé)</h2>
+        <div class="callout">
+          <strong>Chaque container HD5</strong> intègre la boucle hydro interne + le rejet de chaleur via dry-cooling.
+          Le site n’a pas de tours/pompes centrales à dimensionner.
+        </div>
+        <table style="margin-top:10px">
+          <thead><tr><th>Point</th><th>Valeur</th><th>Note</th></tr></thead>
+          <tbody>
+            <tr><td>Puissance container</td><td><strong>1.765 MW</strong></td><td class="muted">MAX • cooling inclus</td></tr>
+            <tr><td>Risque clé Qatar</td><td><strong>Performance dry cooler à 45–50°C</strong></td><td class="muted">à valider courbes constructeur</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="card">
+        <h2>Checklist technique cooling</h2>
+        <ul class="note" style="margin:0 0 0 18px">
+          <li>Validation “pire cas été” (T° ambiante, fouling sable, marges)</li>
+          <li>Procédures maintenance (nettoyage échangeurs, ventilateurs, pièces)</li>
+          <li>Qualité eau (pH, conductivité, corrosion) — boucles internes</li>
+        </ul>
+      </div>
+    </section>
+
+    <div class="sep"></div>
+
+    <section id="layout" class="card">
+      <h2>Implantation 2D (schéma)</h2>
+      <p class="note">Version “master” (vue macro). Les dimensions détaillées restent à figer selon contraintes de parcelle et accès.</p>
+      <div class="layout" aria-label="Site layout">
+        <div class="z admin" style="left:22px;top:22px;width:190px;height:90px">
+          <div class="t">ADMIN / CONTROL</div><div class="d">Bureaux + control room</div>
+        </div>
+        <div class="z maint" style="left:22px;top:128px;width:190px;height:120px">
+          <div class="t">MAINT.</div><div class="d">Entrepôt + atelier</div>
+        </div>
+        <div class="z road" style="left:230px;top:22px;width:970px;height:34px">
+          <div class="d">ROUTE PRINCIPALE</div>
+        </div>
+        <div class="z hv" style="left:790px;top:74px;width:260px;height:150px">
+          <div class="t">HV/MV SUBSTATION</div><div class="d">132/33 kV</div><div class="p">2×100 MVA (N+1)</div>
+        </div>
+        <div class="z cont" style="left:260px;top:250px;width:260px;height:220px">
+          <div class="t">ZONE 1</div><div class="d">20 containers</div><div class="p">~30 MW (nominal)</div>
+        </div>
+        <div class="z cont" style="left:545px;top:250px;width:260px;height:220px">
+          <div class="t">ZONE 2</div><div class="d">19 containers</div><div class="p">~29 MW (nominal)</div>
+        </div>
+        <div class="z cont" style="left:830px;top:250px;width:260px;height:220px">
+          <div class="t">ZONE 3</div><div class="d">19 containers</div><div class="p">~29 MW (nominal)</div>
+        </div>
+      </div>
+    </section>
+
+    <div class="sep"></div>
+
+    <section id="pricing" class="two">
+      <div class="card">
+        <h2>Pricing (USD)</h2>
+        <table>
+          <thead><tr><th>Élément</th><th>Unitaire</th><th>Qté</th><th>Total</th></tr></thead>
+          <tbody>
+            <tr><td>Container + cooling (HD5)</td><td><strong>$119,888</strong></td><td>58</td><td><strong>$6,953,504</strong></td></tr>
+            <tr><td>Mineur S21XP Hydro</td><td><strong>$7,662.6</strong></td><td>17,864</td><td><strong>$136,884,686.4</strong></td></tr>
+            <tr><td><strong>TOTAL (IT + containers)</strong></td><td>-</td><td>-</td><td><strong>$143,838,190.4</strong></td></tr>
+          </tbody>
+        </table>
+        <p class="note" style="margin-top:10px">Hors: HV/MV, MV/LV, câbles, RMU, génie civil, installation, logistique, taxes, O&amp;M.</p>
+      </div>
+      <div class="card">
+        <h2>Décision engineering à figer</h2>
+        <div class="callout">
+          <strong>1.765 MW = MAX</strong>. Pour finaliser HV/MV N+1, il faut définir la <strong>puissance nominale d'exploitation</strong>
+          (throttling été / marges / PF). Ensuite on confirme 2×100 MVA ou upgrade.
+        </div>
+        <p class="note" style="margin-top:10px">
+          Je peux intégrer une “nominal policy” (ex: 1.512 MW nominal) si tu me la donnes, sinon le document master restera “MAX-based + nominal TBD”.
+        </p>
+      </div>
+    </section>
+
+    <div class="sep"></div>
+
+    <footer class="note" style="padding:10px 2px 30px">
+      <div><strong>Master file:</strong> <span class="mono">index.html</span> • généré pour consolidation. Les anciens fichiers seront archivés ensuite.</div>
+    </footer>
+  </main>
+
+  <script>
+    // ========================================
+    // CONFIGURATION (S21XP Hydro - Rev 5.0)
+    // ========================================
+    const CONFIG = {
+      containers: 58,
+      minersPerContainer: 308,
+      thPerMiner: 473,           // S21XP Hydro
+      wPerMiner: 5676,           // S21XP Hydro
+      kwPerContainerMax: 1765,   // MAX, cooling included
+      minerModel: 'S21XP Hydro'
+    };
+
+    // ========================================
+    // UTILITY: Safe DOM Update
+    // ========================================
+    function updateElement(id, value, fallback = '—') {
+      const el = document.getElementById(id);
+      if (!el) {
+        console.error(`❌ Element #${id} not found in DOM`);
+        return false;
+      }
+      el.textContent = value !== null && value !== undefined ? value : fallback;
+      return true;
+    }
+
+    // ========================================
+    // CALCULATIONS
+    // ========================================
+    function calculateMetrics(config) {
+      try {
+        // Validation des inputs
+        if (config.containers <= 0 || config.minersPerContainer <= 0) {
+          throw new Error('Containers et mineurs doivent être > 0');
+        }
+        if (config.thPerMiner <= 0 || config.wPerMiner <= 0) {
+          throw new Error('Hashrate et puissance doivent être > 0');
+        }
+
+        const minersTotal = config.containers * config.minersPerContainer;
+        const itMW = (minersTotal * config.wPerMiner) / 1e6;
+        const containersMW = (config.containers * config.kwPerContainerMax) / 1000;
+        const hashrateEH = (minersTotal * config.thPerMiner) / 1e6;
+        const minersPerContainerKW = (config.minersPerContainer * config.wPerMiner) / 1000;
+        const auxKW = config.kwPerContainerMax - minersPerContainerKW;
+
+        // Validation des résultats
+        if (auxKW < 0) {
+          console.warn('⚠️ Puissance auxiliaire négative - vérifier les specs');
+        }
+        if (hashrateEH > 20) {
+          console.warn('⚠️ Hashrate inhabituellement élevé');
+        }
+
+        return {
+          minersTotal,
+          itMW,
+          containersMW,
+          hashrateEH,
+          minersPerContainerKW,
+          auxKW,
+          valid: true
+        };
+      } catch (error) {
+        console.error('❌ Erreur de calcul:', error.message);
+        return { valid: false, error: error.message };
+      }
+    }
+
+    // ========================================
+    // MAIN EXECUTION
+    // ========================================
+    const metrics = calculateMetrics(CONFIG);
+
+    if (!metrics.valid) {
+      alert('⚠️ Erreur dans les calculs: ' + metrics.error);
+    } else {
+      // Update KPIs with validation
+      updateElement('kpi-miners', metrics.minersTotal.toLocaleString());
+      updateElement('kpi-hashrate', metrics.hashrateEH.toFixed(2));
+      updateElement('chk-miners-p', metrics.minersPerContainerKW.toFixed(0) + ' kW');
+      updateElement('chk-aux', metrics.auxKW.toFixed(1) + ' kW');
+
+      console.log('✅ Calculs validés:', {
+        mineurs: metrics.minersTotal,
+        hashrate: metrics.hashrateEH.toFixed(2) + ' EH/s',
+        puissance: metrics.containersMW.toFixed(2) + ' MW'
+      });
+    }
+
+    // ========================================
+    // CHARTS (with error handling)
+    // ========================================
+    function initCharts(metrics) {
+      if (!metrics.valid) {
+        console.error('❌ Cannot init charts - invalid metrics');
+        return;
+      }
+
+      // Power Chart
+      const powerCtx = document.getElementById('chartPower');
+      if (powerCtx) {
+        try {
+          new Chart(powerCtx, {
+            type: 'bar',
+            data: {
+              labels: ['IT (mineurs)', 'Containers (MAX)'],
+              datasets: [{
+                label: 'MW',
+                data: [metrics.itMW, metrics.containersMW],
+                backgroundColor: ['#4f8cff', '#f59e0b']
+              }]
+            },
+            options: {
+              responsive: true,
+              maintainAspectRatio: false,
+              plugins: { 
+                legend: { display: false }, 
+                title: { display: true, text: 'Puissance (MW) — calculée' } 
+              },
+              scales: { y: { beginAtZero: true } }
+            }
+          });
+        } catch (error) {
+          console.error('❌ Erreur chart Power:', error);
+        }
+      } else {
+        console.warn('⚠️ Canvas #chartPower not found');
+      }
+
+      // Hashrate Chart
+      const hashCtx = document.getElementById('chartHash');
+      if (hashCtx) {
+        try {
+          new Chart(hashCtx, {
+            type: 'doughnut',
+            data: {
+              labels: ['Hashrate total (EH/s)', ''],
+              datasets: [{
+                data: [metrics.hashrateEH, Math.max(0.01, 10 - metrics.hashrateEH)],
+                backgroundColor: ['#22c55e', 'rgba(255,255,255,.06)'],
+                borderWidth: 0
+              }]
+            },
+            options: {
+              responsive: true,
+              maintainAspectRatio: false,
+              plugins: {
+                legend: { display: false },
+                title: { display: true, text: 'Hashrate total (S21XP Hydro)' }
+              }
+            }
+          });
+        } catch (error) {
+          console.error('❌ Erreur chart Hashrate:', error);
+        }
+      } else {
+        console.warn('⚠️ Canvas #chartHash not found');
+      }
+    }
+
+    // Initialize charts
+    initCharts(metrics);
+  </script>
+</body>
+</html>
+
+

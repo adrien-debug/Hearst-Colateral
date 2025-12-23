@@ -1,0 +1,1468 @@
+<!DOCTYPE html>
+<!-- saved from url=(0046)http://localhost:6662/index-58-containers.html -->
+<html lang="fr"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Note de Calcul - 58 Containers HD5 | Hearst Qatar</title>
+    <script src="./Note de Calcul - 58 Containers HD5 _ Hearst Qatar_files/chart.umd.min.js"></script>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --secondary: #64748b;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --border: #e2e8f0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #334155;
+            background: var(--light);
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+            color: white;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .header .meta {
+            opacity: 0.9;
+            font-size: 0.95rem;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 0;
+            min-height: calc(100vh - 140px);
+        }
+
+        .sidebar {
+            background: white;
+            border-right: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            height: calc(100vh - 140px);
+            overflow-y: auto;
+        }
+
+        .nav-menu {
+            list-style: none;
+            padding: 1rem 0;
+        }
+
+        .nav-menu li {
+            margin: 0;
+        }
+
+        .nav-menu a {
+            display: block;
+            padding: 0.75rem 1.5rem;
+            color: var(--dark);
+            text-decoration: none;
+            transition: all 0.2s;
+            border-left: 3px solid transparent;
+        }
+
+        .nav-menu a:hover {
+            background: var(--light);
+            border-left-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .nav-menu a.active {
+            background: #eff6ff;
+            border-left-color: var(--primary);
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .content {
+            padding: 2rem;
+            max-width: 1400px;
+        }
+
+        .section {
+            display: none;
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+
+        .section.active {
+            display: block;
+            animation: fadeIn 0.3s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h2 {
+            color: var(--primary);
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        h3 {
+            color: var(--dark);
+            margin: 1.5rem 0 1rem;
+        }
+
+        .card {
+            background: var(--light);
+            padding: 1.5rem;
+            border-radius: 6px;
+            margin: 1rem 0;
+            border-left: 4px solid var(--primary);
+        }
+
+        .card.warning {
+            border-left-color: var(--warning);
+            background: #fffbeb;
+        }
+
+        .card.danger {
+            border-left-color: var(--danger);
+            background: #fef2f2;
+        }
+
+        .card.success {
+            border-left-color: var(--success);
+            background: #f0fdf4;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            background: white;
+        }
+
+        th, td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        th {
+            background: var(--dark);
+            color: white;
+            font-weight: 600;
+        }
+
+        tr:hover {
+            background: var(--light);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 6px;
+            border: 1px solid var(--border);
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--primary);
+            margin: 0.5rem 0;
+        }
+
+        .stat-label {
+            color: var(--secondary);
+            font-size: 0.9rem;
+        }
+
+        .calculator {
+            background: #f0f9ff;
+            padding: 2rem;
+            border-radius: 8px;
+            border: 2px solid var(--primary);
+            margin: 2rem 0;
+        }
+
+        .input-group {
+            margin: 1rem 0;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .btn {
+            background: var(--primary);
+            color: white;
+            padding: 0.75rem 2rem;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-top: 1rem;
+        }
+
+        .btn:hover {
+            background: #1d4ed8;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .results {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 6px;
+            margin-top: 1.5rem;
+        }
+
+        .results p {
+            margin: 0.5rem 0;
+            font-size: 1.1rem;
+        }
+
+        .results strong {
+            color: var(--primary);
+            font-size: 1.2rem;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 400px;
+            margin: 2rem 0;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .badge.success { background: #dcfce7; color: #166534; }
+        .badge.warning { background: #fef3c7; color: #92400e; }
+        .badge.danger { background: #fee2e2; color: #991b1b; }
+        .badge.info { background: #dbeafe; color: #1e40af; }
+
+        @media print {
+            .sidebar, .calculator, .btn { display: none; }
+            .container { grid-template-columns: 1fr; }
+            .section { display: block !important; page-break-after: always; }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+            .sidebar {
+                position: static;
+                height: auto;
+                border-right: none;
+                border-bottom: 1px solid var(--border);
+            }
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>📊 Note de Calcul d'Intégration - 58 Containers Bitmain HD5</h1>
+    <div class="meta">
+        <strong>Projet:</strong> Hearst Qatar Mining Farm | 
+        <strong>Date:</strong> 22 Décembre 2024 | 
+        <strong>Révision:</strong> 4.0-CORRECTED
+    </div>
+</div>
+
+<div class="container">
+    <nav class="sidebar">
+        <ul class="nav-menu">
+            <li><a href="#" class="nav-link" data-section="overview">🏠 Vue d'ensemble</a></li>
+            <li><a href="#" class="nav-link" data-section="input-data">📋 Données d'entrée</a></li>
+            <li><a href="#" class="nav-link" data-section="electrical">⚡ Bilan électrique</a></li>
+            <li><a href="#" class="nav-link" data-section="thermal">🌡️ Bilan thermique</a></li>
+            <li><a href="#" class="nav-link" data-section="hydraulic">💧 Système hydraulique</a></li>
+            <li><a href="#" class="nav-link" data-section="cooling">❄️ Dry coolers intégrés</a></li>
+            <li><a href="#" class="nav-link" data-section="distribution">🔌 Distribution BT</a></li>
+            <li><a href="#" class="nav-link" data-section="pue">📈 PUE &amp; Performance</a></li>
+            <li><a href="#" class="nav-link" data-section="calculator">🧮 Calculateur</a></li>
+            <li><a href="#" class="nav-link active" data-section="risks">⚠️ Risques &amp; Actions</a></li>
+        </ul>
+    </nav>
+
+    <main class="content">
+        <!-- OVERVIEW SECTION -->
+        <section id="overview" class="section">
+            <h2>🏠 Vue d'ensemble du projet</h2>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-label">Containers HD5</div>
+                    <div class="stat-value">58</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">IT Load nominal</div>
+                    <div class="stat-value">87.7 <small>MW</small></div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Hashrate total (S21XP Hydro)</div>
+                    <div class="stat-value">8.45 <small>EH/s</small></div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">PUE cible</div>
+                    <div class="stat-value">1.072</div>
+                </div>
+            </div>
+
+            <div class="card success">
+                <h3>✅ Objectif de cette note</h3>
+                <p>Dimensionnement complet et corrigé des systèmes électriques, hydrauliques et thermiques pour une ferme de mining Bitcoin de 58 containers Bitmain Antspace HD5 Hydro équipés de mineurs <strong>S21XP Hydro</strong>.</p>
+            </div>
+
+            <h3>Configuration du site (référence HD5 validée)</h3>
+            <table>
+                <tbody><tr>
+                    <th>Paramètre</th>
+                    <th>Valeur</th>
+                    <th>Unité</th>
+                </tr>
+                <tr>
+                    <td>Nombre de containers</td>
+                    <td><strong>58</strong></td>
+                    <td>unités</td>
+                </tr>
+                <tr>
+                    <td>Mineurs par container</td>
+                    <td><strong>308</strong></td>
+                    <td>Antminer <strong>S21XP Hydro</strong> (308 slots)</td>
+                </tr>
+                <tr>
+                    <td>Total mineurs</td>
+                    <td><strong>17,864</strong></td>
+                    <td>unités</td>
+                </tr>
+                <tr>
+                    <td>Type de refroidissement</td>
+                    <td><strong>Hydro + dry-cooling intégré</strong></td>
+                    <td>Pas de tours / pas de pompes de site</td>
+                </tr>
+                <tr>
+                    <td>Température eau</td>
+                    <td><strong>Selon constructeur</strong></td>
+                    <td>Le circuit eau est interne au container (référence Bitmain)</td>
+                </tr>
+            </tbody></table>
+
+            <div class="card warning">
+                <h3>⚠️ Corrections apportées</h3>
+                <p><strong>Problèmes identifiés dans une version antérieure (non alignée HD5):</strong></p>
+                <ul style="margin-left: 2rem; margin-top: 1rem;">
+                    <li>Hypothèse <strong>400 kW / container</strong> au lieu de ~<strong>1.5 MW</strong> (HD5)</li>
+                    <li>Hypothèse <strong>70 mineurs / container</strong> au lieu de <strong>308</strong> (HD5)</li>
+                    <li>Hypothèse <strong>tours/pompes/collecteurs centraux</strong> alors que le HD5 rejette via <strong>dry-cooling intégré</strong></li>
+                    <li>Transformateurs HV/MV et MV/LV non alignés avec le dimensionnement 90 MW</li>
+                </ul>
+                <p style="margin-top: 1rem;"><strong>Cette note présente la configuration CORRIGÉE et validée.</strong></p>
+            </div>
+        </section>
+
+        <!-- INPUT DATA SECTION -->
+        <section id="input-data" class="section">
+            <h2>📋 Données d'entrée</h2>
+
+            <h3>💰 Hypothèses de prix (USD)</h3>
+            <table>
+                <tbody><tr>
+                    <th>Élément</th>
+                    <th>Unitaire</th>
+                    <th>Quantité</th>
+                    <th>Total</th>
+                </tr>
+                <tr>
+                    <td>Container + cooling intégré (HD5)</td>
+                    <td><strong>$119,888</strong></td>
+                    <td>58</td>
+                    <td><strong>$6,953,504</strong></td>
+                </tr>
+                <tr>
+                    <td>Mineur Antminer S21XP Hydro</td>
+                    <td><strong>$7,662.6</strong></td>
+                    <td>17,864</td>
+                    <td><strong>$136,884,686.4</strong></td>
+                </tr>
+                <tr style="background: #f0f9ff; font-weight: bold;">
+                    <td>TOTAL IT + CONTAINERS</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td><strong>$143,838,190.4</strong></td>
+                </tr>
+            </tbody></table>
+            <p style="color:#64748b; font-size:0.9rem;">Note: hors génie civil, sous-station HV/MV, MV/LV, câbles, RMU, installation, transport, taxes, O&amp;M.</p>
+
+            <h3>Spécifications Container Bitmain Antspace HD5 Hydro</h3>
+            <table>
+                <tbody><tr>
+                    <th>Paramètre</th>
+                    <th>Valeur</th>
+                    <th>Remarque</th>
+                </tr>
+                <tr>
+                    <td>Modèle</td>
+                    <td><strong>Bitmain Antspace HD5 Hydro</strong></td>
+                    <td>Container 40ft (déploiement rapide) + dry cooler intégré</td>
+                </tr>
+                <tr>
+                    <td>Dimensions</td>
+                    <td><strong>12.2 × 2.44 × ~5.8 m</strong></td>
+                    <td>L × l × h (container + dry cooler sur toit)</td>
+                </tr>
+                <tr>
+                    <td>Capacité mineurs</td>
+                    <td><strong>Jusqu'à 308 unités</strong></td>
+                    <td>Séries S19/S21 Hydro (selon configuration)</td>
+                </tr>
+                <tr>
+                    <td>Puissance électrique</td>
+                    <td><strong>1,512 kW nominal</strong> (1,765 kW max)</td>
+                    <td>Référence Bitmain (mineurs + auxiliaires)</td>
+                </tr>
+                <tr>
+                    <td>Dissipation thermique</td>
+                    <td><strong>~1,490 kW</strong></td>
+                    <td>≈ 99% de l'IT load (ordre de grandeur)</td>
+                </tr>
+                <tr>
+                    <td>Débit eau (constructeur)</td>
+                    <td><strong>70 m³/h</strong></td>
+                    <td>Circuits internes au container (pas de collecteur site requis)</td>
+                </tr>
+                <tr>
+                    <td>Connections eau</td>
+                    <td><strong>Selon datasheet constructeur</strong></td>
+                    <td>Le site n'implémente pas de boucle centrale (référence HD5)</td>
+                </tr>
+            </tbody></table>
+
+            <h3>Spécifications Mineur — Antminer S21XP Hydro</h3>
+            <table>
+                <tbody><tr>
+                    <th>Paramètre</th>
+                    <th>Valeur</th>
+                    <th>Unité</th>
+                </tr>
+                <tr>
+                    <td>Hashrate</td>
+                    <td><strong>473</strong></td>
+                    <td>TH/s</td>
+                </tr>
+                <tr>
+                    <td>Puissance</td>
+                    <td><strong>5,676</strong></td>
+                    <td>W</td>
+                </tr>
+                <tr>
+                    <td>Efficacité</td>
+                    <td><strong>~12</strong></td>
+                    <td>J/TH</td>
+                </tr>
+                <tr>
+                    <td>Refroidissement</td>
+                    <td><strong>Hydro (eau)</strong></td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>Tension</td>
+                    <td><strong>400V 3Ph</strong></td>
+                    <td>AC</td>
+                </tr>
+            </tbody></table>
+
+            <div class="card">
+                <h3>📐 Calculs de base</h3>
+                <p><strong>Par container:</strong></p>
+                <ul style="margin-left: 2rem;">
+                    <li>Puissance nominale: <strong>1.512 MW</strong> (max <strong>1.765 MW</strong>)</li>
+                    <li>Mineurs: <strong>308</strong> unités × 473 TH/s</li>
+                    <li>Hashrate container: 308 × 473 TH/s = <strong>145,684 TH/s = 145.68 PH/s</strong></li>
+                </ul>
+                <p style="margin-top: 1rem;"><strong>Site complet (58 containers):</strong></p>
+                <ul style="margin-left: 2rem;">
+                    <li>IT Load nominal: 58 × 1.512 MW = <strong>87.7 MW</strong></li>
+                    <li>IT Load max: 58 × 1.765 MW = <strong>102.4 MW</strong></li>
+                    <li>Hashrate total: 58 × 308 × 473 TH/s = <strong>8,449.7 PH/s = 8.45 EH/s</strong></li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- ELECTRICAL SECTION -->
+        <section id="electrical" class="section">
+            <h2>⚡ Bilan électrique</h2>
+
+            <div class="card">
+                <h3>Résumé du bilan de puissance</h3>
+                <table>
+                    <tbody><tr>
+                        <th>Poste</th>
+                        <th>Puissance (kW)</th>
+                        <th>Pourcentage</th>
+                    </tr>
+                    <tr>
+                        <td>Charge IT (mineurs)</td>
+                        <td><strong>87,700</strong></td>
+                        <td>93.3%</td>
+                    </tr>
+                    <tr>
+                        <td>Dry coolers intégrés (ventilateurs)</td>
+                        <td><strong>1,392</strong></td>
+                        <td>1.5%</td>
+                    </tr>
+                    <tr>
+                        <td>Pertes transformateurs (HV/MV + MV/LV)</td>
+                        <td><strong>4,110</strong></td>
+                        <td>4.4%</td>
+                    </tr>
+                    <tr>
+                        <td>Pertes distribution MV (câbles + RMU)</td>
+                        <td><strong>860</strong></td>
+                        <td>0.9%</td>
+                    </tr>
+                    <tr style="background: #f0f9ff; font-weight: bold;">
+                        <td>TOTAL SITE</td>
+                        <td><strong>94,060</strong></td>
+                        <td>100%</td>
+                    </tr>
+                </tbody></table>
+                <p style="margin-top: 0.75rem; color: #64748b; font-size: 0.9rem;">
+                    Note: valeurs arrondies pour cohérence avec le document d'architecture (PUE = 94.06 / 87.7).
+                </p>
+            </div>
+
+            <h3>Dimensionnement Transformateurs</h3>
+            
+            <div class="card warning">
+                <p><strong>Puissance nominale site:</strong> 94.06 MW (IT 87.7 MW + pertes/fans)</p>
+                <p><strong>Puissance max (mineurs au max):</strong> ~113 MW</p>
+                <p><strong>Connexion réseau:</strong> 132 kV (Kahramaa) • capacité contractuelle à valider (référence dashboard: 150 MVA)</p>
+            </div>
+
+            <h4>Transformateurs HT/MT (132 kV → 33 kV)</h4>
+            <table>
+                <tbody><tr>
+                    <th>ID</th>
+                    <th>Puissance</th>
+                    <th>Type</th>
+                    <th>Charge</th>
+                    <th>Statut</th>
+                </tr>
+                <tr>
+                    <td>HV/MV-T1</td>
+                    <td><strong>100 MVA</strong></td>
+                    <td>ONAN/ONAF</td>
+                    <td>N+1 (peut supporter ~94 MW nominal seul)</td>
+                    <td><span class="badge success">N+1</span></td>
+                </tr>
+                <tr>
+                    <td>HV/MV-T2</td>
+                    <td><strong>100 MVA</strong></td>
+                    <td>ONAN/ONAF</td>
+                    <td>N+1 (redondance réelle)</td>
+                    <td><span class="badge success">N+1</span></td>
+                </tr>
+            </tbody></table>
+
+            <h4>Transformateurs MT/BT (33 kV → 400V)</h4>
+            <table>
+                <tbody><tr>
+                    <th>ID</th>
+                    <th>Puissance</th>
+                    <th>Containers</th>
+                    <th>Charge</th>
+                    <th>Statut</th>
+                </tr>
+                <tr style="background: #f0f9ff; font-weight: bold;">
+                    <td>TOTAL</td>
+                    <td><strong>29 × 3.75 MVA</strong></td>
+                    <td>58 containers (ratio 2:1)</td>
+                    <td>~80–90% nominal (à détailler par zone)</td>
+                    <td><span class="badge success">VALIDÉ</span></td>
+                </tr>
+            </tbody></table>
+
+            <div class="chart-container">
+                <canvas id="powerChart" height="719" style="display: block; box-sizing: border-box; height: 400px; width: 1272px;" width="2289"></canvas>
+            </div>
+
+            <h3>Architecture électrique</h3>
+            <div class="card">
+                <pre style="font-family: monospace; line-height: 1.4;">Kahramaa 132 kV
+     │
+     ├─ Transfos HV/MV (2×100 MVA, N+1)
+     │
+     └─ Jeu de barres 33 kV
+         │
+         ├─ RMU / Ring 33 kV → 10× transfos 3.75 MVA → 20 containers (Zone 1)
+         ├─ RMU / Ring 33 kV → 10× transfos 3.75 MVA → 19 containers (Zone 2)
+         └─ RMU / Ring 33 kV →  9× transfos 3.75 MVA → 19 containers (Zone 3)
+                </pre>
+            </div>
+        </section>
+
+        <!-- THERMAL SECTION -->
+        <section id="thermal" class="section">
+            <h2>🌡️ Bilan thermique</h2>
+
+            <div class="card">
+                <h3>Principe de conversion</h3>
+                <p>Dans un système de mining Bitcoin, pratiquement toute l'énergie électrique consommée est convertie en chaleur qui doit être évacuée.</p>
+                <p><strong>Taux de conversion:</strong> ~98% (2% pertes dans la distribution électrique)</p>
+            </div>
+
+            <h3>Charge thermique par container</h3>
+            <table>
+                <tbody><tr>
+                    <th>Poste</th>
+                    <th>Puissance (kW)</th>
+                    <th>Remarque</th>
+                </tr>
+                <tr>
+                    <td>Puissance électrique container</td>
+                    <td><strong>1,512</strong></td>
+                    <td>Entrée</td>
+                </tr>
+                <tr>
+                    <td>Chaleur à évacuer (ordre de grandeur)</td>
+                    <td><strong>~1,490</strong></td>
+                    <td>≈ 99% de l'IT load (référence)</td>
+                </tr>
+                <tr>
+                    <td>Rejet de chaleur</td>
+                    <td><strong>Dry cooler intégré</strong></td>
+                    <td>Ventilateurs ~24 kW/container</td>
+                </tr>
+            </tbody></table>
+
+            <h3>Charge thermique totale site</h3>
+            <table>
+                <tbody><tr>
+                    <th>Description</th>
+                    <th>Calcul</th>
+                    <th>Résultat</th>
+                </tr>
+                <tr>
+                    <td>Charge nominale</td>
+                    <td>58 × ~1.49 MW</td>
+                    <td><strong>~86.4 MW</strong></td>
+                </tr>
+                <tr>
+                    <td>Charge pic (+5%)</td>
+                    <td>~86.4 MW × 1.05</td>
+                    <td><strong>~90.7 MW</strong></td>
+                </tr>
+            </tbody></table>
+
+            <div class="card success">
+                <h3>✅ Équilibre thermique</h3>
+                <p><strong>Entrée:</strong> 94.06 MW (facility nominal)</p>
+                <p><strong>Sortie:</strong> ~86.4 MW rejetés via dry coolers intégrés + ~7.7 MW pertes/fans (ordre de grandeur)</p>
+                <p style="margin-top: 1rem; color: #166534;"><strong>Bilan équilibré ✓</strong></p>
+            </div>
+
+            <h3>Température eau de refroidissement</h3>
+            <table>
+                <tbody><tr>
+                    <th>Paramètre</th>
+                    <th>Valeur</th>
+                    <th>Remarque</th>
+                </tr>
+                <tr>
+                    <td>Température entrée (design)</td>
+                    <td><strong>28°C</strong></td>
+                    <td>Sortie tours de refroidissement</td>
+                </tr>
+                <tr>
+                    <td>Température sortie (design)</td>
+                    <td><strong>50°C</strong></td>
+                    <td>Retour containers chauds</td>
+                </tr>
+                <tr>
+                    <td>ΔT (écart)</td>
+                    <td><strong>22°C</strong></td>
+                    <td>Optimal pour efficacité</td>
+                </tr>
+                <tr>
+                    <td>Température max entrée</td>
+                    <td><strong>32°C</strong></td>
+                    <td>Conditions extrêmes été</td>
+                </tr>
+                <tr>
+                    <td>Température max sortie</td>
+                    <td><strong>55°C</strong></td>
+                    <td>Limite constructeur</td>
+                </tr>
+            </tbody></table>
+
+            <div class="chart-container">
+                <canvas id="thermalChart" height="719" style="display: block; box-sizing: border-box; height: 400px; width: 1272px;" width="2289"></canvas>
+            </div>
+        </section>
+
+        <!-- HYDRAULIC SECTION -->
+        <section id="hydraulic" class="section">
+            <h2>💧 Système hydraulique (HD5 — intégré)</h2>
+
+            <div class="card success">
+                <h3>✅ Principe (référence Bitmain HD5)</h3>
+                <p>
+                    Le système hydraulique est <strong>intégré au container</strong> (boucles internes + pompes internes) et la chaleur est rejetée vers l'extérieur
+                    via un <strong>dry cooler sur le toit</strong>. Il n’y a <strong>pas de collecteur principal</strong>, <strong>pas de tours</strong> et <strong>pas de pompes de site</strong> à dimensionner.
+                </p>
+            </div>
+
+            <h3>Paramètres clés (par container)</h3>
+            <table>
+                <tbody><tr>
+                    <th>Paramètre</th>
+                    <th>Valeur</th>
+                    <th>Remarque</th>
+                </tr>
+                <tr>
+                    <td>IT load nominal</td>
+                    <td><strong>1,512 kW</strong></td>
+                    <td>Référence Bitmain (max 1,765 kW)</td>
+                </tr>
+                <tr>
+                    <td>Chaleur à rejeter</td>
+                    <td><strong>~1,490 kW</strong></td>
+                    <td>Ordre de grandeur</td>
+                </tr>
+                <tr>
+                    <td>Débit eau (constructeur)</td>
+                    <td><strong>70 m³/h</strong></td>
+                    <td>Interne au container (pas de réseau hydraulique site)</td>
+                </tr>
+                <tr>
+                    <td>Équipement de rejet</td>
+                    <td><strong>Dry cooler intégré</strong></td>
+                    <td>Ventilateurs ~24 kW</td>
+                </tr>
+            </tbody></table>
+
+            <div class="card warning">
+                <h3>⚠️ Points d'ingénierie à valider (Qatar)</h3>
+                <ul style="margin-left: 2rem;">
+                    <li><strong>Performance dry cooler</strong> à 45–50°C ambiant: validation via courbes constructeur (approach / ΔT)</li>
+                    <li><strong>Water quality</strong> (conductivité, corrosion, filtration) pour préserver échangeurs/pompes internes</li>
+                    <li><strong>Maintenance</strong>: accès toiture, nettoyage échangeurs, pièces ventilateurs</li>
+                </ul>
+            </div>
+
+            <div class="chart-container">
+                <canvas id="hydraulicChart" height="719" style="display: block; box-sizing: border-box; height: 400px; width: 1272px;" width="2289"></canvas>
+            </div>
+        </section>
+
+        <!-- COOLING SECTION -->
+        <section id="cooling" class="section">
+            <h2>❄️ Refroidissement — Dry-cooling intégré (HD5)</h2>
+
+            <div class="card info">
+                <h3>Principe</h3>
+                <p>
+                    Chaque container HD5 dispose d’un <strong>dry cooler dédié</strong> (sur le toit). La consommation électrique associée est principalement celle des ventilateurs,
+                    typiquement <strong>~24 kW</strong> par container. Le site ne requiert pas d'infrastructure de tours/pompes centralisée.
+                </p>
+            </div>
+
+            <table>
+                <tbody><tr>
+                    <th>Élément</th>
+                    <th>Quantité</th>
+                    <th>Puissance auxiliaire</th>
+                    <th>Notes</th>
+                </tr>
+                <tr>
+                    <td>Dry coolers intégrés</td>
+                    <td><strong>58</strong></td>
+                    <td><strong>~1.39 MW</strong> (58 × 24 kW)</td>
+                    <td>Ratio 1:1 (un par container)</td>
+                </tr>
+            </tbody></table>
+
+            <div class="card warning">
+                <h3>⚠️ Vérifications requises</h3>
+                <ul style="margin-left: 2rem;">
+                    <li>Courbes constructeur dry cooler (T° ambiante / approach / ΔT) pour garantir la puissance en été</li>
+                    <li>Stratégie maintenance: perte d'un container lors intervention (impact capacité)</li>
+                    <li>Gestion poussière/sable: filtres, nettoyage échangeurs</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- DISTRIBUTION BT SECTION -->
+        <section id="distribution" class="section">
+            <h2>🔌 Distribution Basse Tension (400V)</h2>
+
+            <h3>Architecture par zone</h3>
+            <table>
+                <tbody><tr>
+                    <th>Zone</th>
+                    <th>Transfo</th>
+                    <th>TGBT</th>
+                    <th>Containers</th>
+                    <th>Charge</th>
+                </tr>
+                <tr>
+                    <td>Zone A</td>
+                    <td>10× 3.75 MVA</td>
+                    <td>TGBT (par transfo)</td>
+                    <td><strong>20</strong></td>
+                    <td>30.2 MW nominal (référence)</td>
+                </tr>
+                <tr>
+                    <td>Zone B</td>
+                    <td>10× 3.75 MVA</td>
+                    <td>TGBT (par transfo)</td>
+                    <td><strong>19</strong></td>
+                    <td>28.7 MW nominal (référence)</td>
+                </tr>
+                <tr>
+                    <td>Zone C</td>
+                    <td>9× 3.75 MVA</td>
+                    <td>TGBT (par transfo)</td>
+                    <td><strong>19</strong></td>
+                    <td>28.7 MW nominal (référence)</td>
+                </tr>
+            </tbody></table>
+
+            <h3>Calcul courant par container</h3>
+            <div class="card">
+                <pre style="background: white; padding: 1rem; border-radius: 4px;">Référence constructeur HD5:
+  Courant nameplate container: <strong>2800 A</strong> (4×700 A)
+  Puissance max container: <strong>1.765 MW</strong> (ordre de grandeur)
+
+Note: la distribution BT interne peut être segmentée (4 départs), le détail exact dépend du design HD5.</pre>
+            </div>
+
+            <h3>Distribution feeders</h3>
+            <table>
+                <tbody><tr>
+                    <th>Départ</th>
+                    <th>Containers</th>
+                    <th>Courant</th>
+                    <th>Disjoncteur</th>
+                    <th>Câble</th>
+                </tr>
+                <tr>
+                    <td>F1-A</td>
+                    <td>2</td>
+                    <td>1,176 A</td>
+                    <td>1,250 A</td>
+                    <td>3×(1×240)+120 mm²</td>
+                </tr>
+                <tr>
+                    <td>F2-A à F10-A</td>
+                    <td>18 (2 par feeder)</td>
+                    <td>1,176 A × 9</td>
+                    <td>1,250 A × 9</td>
+                    <td>Idem × 9</td>
+                </tr>
+                <tr style="background: #f0f9ff;">
+                    <td colspan="5"><strong>Zone A: 10 feeders pour 20 containers</strong></td>
+                </tr>
+                <tr>
+                    <td>F1-B à F10-B</td>
+                    <td>19 (2/feeder sauf 1)</td>
+                    <td>~1,176 A</td>
+                    <td>1,250 A</td>
+                    <td>3×(1×240)+120 mm²</td>
+                </tr>
+                <tr style="background: #f0f9ff;">
+                    <td colspan="5"><strong>Zone B: 10 feeders pour 19 containers</strong></td>
+                </tr>
+                <tr>
+                    <td>F1-C à F10-C</td>
+                    <td>19 (2/feeder sauf 1)</td>
+                    <td>~1,176 A</td>
+                    <td>1,250 A</td>
+                    <td>3×(1×240)+120 mm²</td>
+                </tr>
+                <tr style="background: #f0f9ff;">
+                    <td colspan="5"><strong>Zone C: 10 feeders pour 19 containers</strong></td>
+                </tr>
+            </tbody></table>
+
+            <h3>Câblage par container</h3>
+            <table>
+                <tbody><tr>
+                    <th>Élément</th>
+                    <th>Spécification</th>
+                    <th>Remarque</th>
+                </tr>
+                <tr>
+                    <td>Câble alimentation</td>
+                    <td><strong>3×(1×120)+70 mm² Cu</strong></td>
+                    <td>Du feeder au container</td>
+                </tr>
+                <tr>
+                    <td>Longueur max</td>
+                    <td><strong>50 m</strong></td>
+                    <td>Limite chute tension 3%</td>
+                </tr>
+                <tr>
+                    <td>Disjoncteur container</td>
+                    <td><strong>800 A 4P</strong></td>
+                    <td>Courbe D, Icu 50 kA</td>
+                </tr>
+                <tr>
+                    <td>Protection différentielle</td>
+                    <td><strong>300 mA</strong></td>
+                    <td>Type B (courants DC)</td>
+                </tr>
+                <tr>
+                    <td>Mise à la terre</td>
+                    <td><strong>TN-S</strong></td>
+                    <td>PE séparé, R &lt; 1Ω</td>
+                </tr>
+            </tbody></table>
+
+            <div class="card warning">
+                <h3>⚠️ Points d'attention</h3>
+                <ul style="margin-left: 2rem;">
+                    <li>Courant container très élevé (ordre de grandeur <strong>2800 A</strong>) → vérifier architecture de départs (4×700 A)</li>
+                    <li>Derating câbles / appareillages à >40°C (Qatar)</li>
+                    <li>Vérifier température ambiante câbles (dérating si &gt; 40°C)</li>
+                    <li>Protection arc-flash: <strong>EPI Catégorie 3-4 requis</strong></li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- PUE SECTION -->
+        <section id="pue" class="section">
+            <h2>📈 PUE et Performance</h2>
+
+            <h3>Calcul du PUE (Power Usage Effectiveness)</h3>
+            <div class="card">
+                <p><strong>Définition:</strong> PUE = Puissance Totale Facility / Puissance IT</p>
+                <p>Avec dry-cooling intégré au HD5, la surcharge énergétique est faible (principalement ventilateurs + pertes électriques).</p>
+            </div>
+
+            <table>
+                <tbody><tr>
+                    <th>Poste</th>
+                    <th>Puissance (kW)</th>
+                    <th>% du total</th>
+                </tr>
+                <tr style="background: #f0f9ff; font-weight: bold;">
+                    <td>IT Load (mineurs)</td>
+                    <td><strong>87,700</strong></td>
+                    <td>93.3%</td>
+                </tr>
+                <tr>
+                    <td>Dry coolers intégrés (ventilateurs)</td>
+                    <td><strong>1,392</strong></td>
+                    <td>1.5%</td>
+                </tr>
+                <tr>
+                    <td>Pertes transformateurs (HV/MV + MV/LV)</td>
+                    <td><strong>4,110</strong></td>
+                    <td>4.4%</td>
+                </tr>
+                <tr>
+                    <td>Pertes distribution MV (câbles + RMU)</td>
+                    <td><strong>860</strong></td>
+                    <td>0.9%</td>
+                </tr>
+                <tr style="background: #dcfce7; font-weight: bold;">
+                    <td>TOTAL FACILITY</td>
+                    <td><strong>94,060</strong></td>
+                    <td>100%</td>
+                </tr>
+            </tbody></table>
+
+            <div class="card success">
+                <h3>✅ PUE Final</h3>
+                <pre style="background: white; padding: 1rem; border-radius: 4px; font-size: 1.2rem;">PUE = 94.06 / 87.7 = <strong style="color: #166534; font-size: 2rem;">1.072</strong>
+                </pre>
+                <p style="margin-top: 1rem;"><strong>Très bon résultat</strong> pour une ferme de mining hydro containerisée, surtout sans production de froid centralisée.</p>
+            </div>
+
+            <h3>KPI de performance (résumé)</h3>
+            <table>
+                <tbody><tr>
+                    <th>Métrique</th>
+                    <th>Valeur</th>
+                    <th>Remarque</th>
+                </tr>
+                <tr>
+                    <td>Containers</td>
+                    <td><strong>58</strong></td>
+                    <td>Bitmain ANTSPACE HD5</td>
+                </tr>
+                <tr>
+                    <td>Mineurs</td>
+                    <td><strong>17,864</strong></td>
+                    <td>308 / container (jusqu'à)</td>
+                </tr>
+                <tr>
+                    <td>IT load nominal</td>
+                    <td><strong>87.7 MW</strong></td>
+                    <td>1.512 MW / container</td>
+                </tr>
+                <tr>
+                    <td>Facility nominal</td>
+                    <td><strong>94.06 MW</strong></td>
+                    <td>Incl. pertes + ventilateurs</td>
+                </tr>
+                <tr>
+                    <td>Hashrate</td>
+                    <td><strong>8.45 EH/s</strong></td>
+                    <td>473 TH/s (S21XP Hydro)</td>
+                </tr>
+                <tr>
+                    <td>PUE</td>
+                    <td><strong style="color: #10b981;">1.072</strong></td>
+                    <td>Très bon (benchmark hydro container)</td>
+                </tr>
+            </tbody></table>
+
+            <div class="chart-container">
+                <canvas id="pueChart" height="719" style="display: block; box-sizing: border-box; height: 400px; width: 1272px;" width="2289"></canvas>
+            </div>
+
+            <h3>Comparaison industrie</h3>
+            <table>
+                <tbody><tr>
+                    <th>Type installation</th>
+                    <th>PUE typique</th>
+                    <th>Notre projet</th>
+                </tr>
+                <tr>
+                    <td>Immersion cooling</td>
+                    <td>1.02 - 1.05</td>
+                    <td style="background: #fef3c7;"><strong>1.072 ✓ Proche</strong></td>
+                </tr>
+                <tr>
+                    <td>Hydro cooling (container)</td>
+                    <td>1.05 - 1.15</td>
+                    <td style="background: #f0fdf4;"><strong>1.072 ✓ Excellent</strong></td>
+                </tr>
+                <tr>
+                    <td>Air cooling (moderne)</td>
+                    <td>1.15 - 1.30</td>
+                    <td style="background: #f0fdf4;"><strong>1.072 ✓ Bien meilleur</strong></td>
+                </tr>
+                <tr>
+                    <td>Air cooling (standard)</td>
+                    <td>1.30 - 1.50</td>
+                    <td style="background: #f0fdf4;"><strong>1.072 ✓ 20-30% plus efficace</strong></td>
+                </tr>
+            </tbody></table>
+        </section>
+
+        <!-- CALCULATOR SECTION -->
+        <section id="calculator" class="section">
+            <h2>🧮 Calculateur interactif</h2>
+
+            <div class="calculator">
+                <h3>Calculateur HD5 (hydraulique interne + électrique + mining)</h3>
+                <p>Ajustez les paramètres pour recalculer des ordres de grandeur (sans boucle hydraulique site).</p>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin-top: 1.5rem;">
+                    <div class="input-group">
+                        <label>Nombre de containers</label>
+                        <input type="number" id="calc-containers" value="58" min="1" max="300">
+                    </div>
+
+                    <div class="input-group">
+                        <label>Puissance par container (kW)</label>
+                        <input type="number" id="calc-power" value="1512" min="800" max="2000" step="10">
+                    </div>
+
+                    <div class="input-group">
+                        <label>ΔT eau (°C)</label>
+                        <input type="number" id="calc-delta-t" value="18" min="5" max="30">
+                    </div>
+
+                    <div class="input-group">
+                        <label>Mineurs par container</label>
+                        <input type="number" id="calc-miners" value="308" min="1" max="308">
+                    </div>
+                </div>
+
+                <button class="btn" onclick="calculate()">🔄 Recalculer</button>
+
+                <div class="results">
+                    <h4>Résultats hydrauliques (internes HD5)</h4>
+                    <p>Débit théorique par container: <strong id="result-flow-container">~71 m³/h</strong></p>
+                    <p>Débit total (interne, 58 containers): <strong id="result-flow-total">~4,120 m³/h</strong></p>
+
+                    <h4 style="margin-top: 1.5rem;">Résultats électriques</h4>
+                    <p>IT load total: <strong id="result-power-total">87.7 MW</strong></p>
+                    <p>Courant nameplate par container: <strong id="result-current">2800 A</strong></p>
+                    <p>Transfos MV/LV (3.75 MVA, ratio 2:1): <strong id="result-transfos">29</strong></p>
+                    <p>Transfos HV/MV: <strong id="result-hvtrafos">2×100 MVA</strong></p>
+
+                    <h4 style="margin-top: 1.5rem;">Résultats thermiques</h4>
+                    <p>Rejet thermique total (ordre de grandeur): <strong id="result-thermal">~86.4 MW</strong></p>
+                    <p>Dry coolers requis: <strong id="result-drycoolers">58 (1:1)</strong></p>
+
+                    <h4 style="margin-top: 1.5rem;">Performance mining</h4>
+                    <p>Hashrate total: <strong id="result-hashrate">5.98 EH/s</strong></p>
+                    <p>Total mineurs: <strong id="result-total-miners">17,864</strong></p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>💡 Utilisation</h3>
+                <ul style="margin-left: 2rem;">
+                    <li>Modifiez le nombre de containers pour voir l'impact sur le dimensionnement</li>
+                    <li>Ajustez le ΔT pour optimiser l'efficacité thermique</li>
+                    <li>Testez différentes puissances par container</li>
+                    <li>Le calculateur utilise les mêmes formules que la note de calcul</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- RISKS SECTION -->
+        <section id="risks" class="section active">
+            <h2>⚠️ Risques identifiés et plan d'action</h2>
+
+            <div class="card danger">
+                <h3>🚨 RISQUES CRITIQUES (priorité immédiate)</h3>
+            </div>
+
+            <table>
+                <tbody><tr>
+                    <th style="width: 40%;">Risque</th>
+                    <th style="width: 30%;">Impact</th>
+                    <th style="width: 30%;">Action corrective</th>
+                </tr>
+                <tr style="background: #fee2e2;">
+                    <td><strong>R1: Capacité dry cooler insuffisante en été Qatar</strong></td>
+                    <td>🔴 BLOQUANT - Dérating mineurs / arrêt container</td>
+                    <td>Valider courbes constructeur (45–50°C), scénario pire cas, marges</td>
+                </tr>
+                <tr style="background: #fee2e2;">
+                    <td><strong>R2: Dimensionnement protection / courts-circuits 33 kV</strong></td>
+                    <td>🔴 CRITIQUE - Défaut non maîtrisé, dommages équipements</td>
+                    <td>Étude IEC 60909 + coordination protections (HV/MV/LV), validation niveaux 40 kA</td>
+                </tr>
+            </tbody></table>
+
+            <div class="card warning" style="margin-top: 2rem;">
+                <h3>⚠️ RISQUES MAJEURS (à traiter rapidement)</h3>
+            </div>
+
+            <table>
+                <tbody><tr>
+                    <th style="width: 40%;">Risque</th>
+                    <th style="width: 30%;">Impact</th>
+                    <th style="width: 30%;">Action corrective</th>
+                </tr>
+                <tr style="background: #fef3c7;">
+                    <td><strong>R3: Dérating câbles / appareillages à 50°C</strong></td>
+                    <td>🟠 MAJEUR - Échauffement, déclenchements, vieillissement</td>
+                    <td>Calcul ampacité + facteurs Qatar, choix sections, ventilation/pose, marges</td>
+                </tr>
+                <tr style="background: #fef3c7;">
+                    <td><strong>R4: Qualité eau / corrosion (boucles internes)</strong></td>
+                    <td>🟠 MAJEUR - Fouling échangeurs, pannes pompes internes</td>
+                    <td>Filtration + monitoring chimie eau, procédure remplissage/maintenance</td>
+                </tr>
+                <tr style="background: #fef3c7;">
+                    <td><strong>R5: Disponibilité transformateurs / spares</strong></td>
+                    <td>🟠 MAJEUR - Temps d'arrêt si panne longue</td>
+                    <td>Plan spares critiques (MV/LV, ventilateurs, RMU), contrats SLA</td>
+                </tr>
+            </tbody></table>
+
+            <div class="card" style="margin-top: 2rem;">
+                <h3>✅ RISQUES MINEURS (surveillance)</h3>
+            </div>
+
+            <table>
+                <tbody><tr>
+                    <th style="width: 40%;">Risque</th>
+                    <th style="width: 30%;">Impact</th>
+                    <th style="width: 30%;">Action corrective</th>
+                </tr>
+                <tr>
+                    <td>R6: Poussière/sable (encrassement échangeurs)</td>
+                    <td>🟡 MINEUR - Dégradation performance dry coolers</td>
+                    <td>Plan nettoyage, filtres/écrans, inspection périodique</td>
+                </tr>
+                <tr>
+                    <td>R7: Qualité eau (TDS, pH, corrosion)</td>
+                    <td>🟡 MINEUR - Entartrage/corrosion long terme</td>
+                    <td>Traitement chimique + filtration + monitoring</td>
+                </tr>
+                <tr>
+                    <td>R8: Perte d'un transfo MT/BT</td>
+                    <td>🟡 MINEUR - Arrêt 2 containers (localisé)</td>
+                    <td>Stock spares + procédure remplacement, zoning MV</td>
+                </tr>
+            </tbody></table>
+
+            <h3 style="margin-top: 2rem;">📋 Plan d'action priorisé</h3>
+
+            <div style="margin-top: 1rem;">
+                <div class="card danger">
+                    <h4>Phase 1 - URGENT (avant construction)</h4>
+                    <ul style="margin-left: 2rem;">
+                        <li>✅ Valider datasheet HD5: 1.512 MW nominal, 308 mineurs, 70 m³/h, 24 kW ventilateurs</li>
+                        <li>✅ Valider courbes dry cooler à 45–50°C (pire cas) + marges</li>
+                        <li>✅ Figurer architecture MV 33 kV + RMU + zoning (sélectivité)</li>
+                        <li>✅ Confirmer contraintes Kahramaa (132 kV / 33 kV, niveau de court-circuit, protection)</li>
+                    </ul>
+                </div>
+
+                <div class="card warning" style="margin-top: 1rem;">
+                    <h4>Phase 2 - IMPORTANT (design détaillé)</h4>
+                    <ul style="margin-left: 2rem;">
+                        <li>Étude courts-circuits IEC 60909 (HV/MV/LV) + coordination protections</li>
+                        <li>Étude ampacité/derating câbles (sol/air, 50°C, groupement)</li>
+                        <li>Schéma unifilaire électrique BT validé</li>
+                        <li>Étude arc-flash et EPI requis</li>
+                        <li>Plan mise à la terre et liaisons équipotentielles</li>
+                    </ul>
+                </div>
+
+                <div class="card" style="margin-top: 1rem;">
+                    <h4>Phase 3 - SUIVI (construction et exploitation)</h4>
+                    <ul style="margin-left: 2rem;">
+                        <li>Monitoring températures (eau interne / dry cooler) et alarmes</li>
+                        <li>Analyse qualité eau (pH, conductivité) + maintenance filtration</li>
+                        <li>Suivi PUE mensuel</li>
+                        <li>Thermographie électrique trimestrielle</li>
+                        <li>Maintenance préventive dry coolers (ventilos/échangeurs) + spares</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card success" style="margin-top: 2rem;">
+                <h3>✅ Points positifs du design</h3>
+                <ul style="margin-left: 2rem;">
+                    <li><strong>PUE:</strong> 1.072 (très bon pour hydro container)</li>
+                    <li><strong>Modularité:</strong> 58 unités autonomes (impact localisé en maintenance)</li>
+                    <li><strong>Simplicité site:</strong> pas de tours/pompes/collecteurs centraux</li>
+                    <li><strong>Compacité:</strong> 75 m²/MW (excellent pour containers)</li>
+                    <li><strong>Redondance HV/MV:</strong> 2×100 MVA (N+1)</li>
+                </ul>
+            </div>
+        </section>
+
+    </main>
+</div>
+
+<script>
+    // Navigation
+    document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const sectionId = link.dataset.section;
+            
+            // Update active link
+            document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+            link.classList.add('active');
+            
+            // Show section
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.getElementById(sectionId).classList.add('active');
+        });
+    });
+
+    // Charts (aligned with HD5 58 containers / S21XP Hydro)
+    const ctx1 = document.getElementById('powerChart');
+    if (ctx1) {
+        new Chart(ctx1, {
+            type: 'bar',
+            data: {
+                labels: ['IT Load', 'Dry coolers', 'Pertes transfos', 'Pertes MV'],
+                datasets: [{
+                    label: 'Puissance (kW)',
+                    data: [87700, 1392, 4110, 860],
+                    backgroundColor: ['#3b82f6', '#10b981', '#f59e0b', '#64748b']
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    title: { display: true, text: 'Répartition de la puissance électrique' }
+                }
+            }
+        });
+    }
+
+    const ctx2 = document.getElementById('thermalChart');
+    if (ctx2) {
+        new Chart(ctx2, {
+            type: 'line',
+            data: {
+                labels: ['Entrée (indic.)', 'Sortie (indic.)'],
+                datasets: [{
+                    label: 'ΔT interne (°C) — indicatif',
+                    data: [32, 50],
+                    borderColor: '#ef4444',
+                    backgroundColor: 'rgba(239, 68, 68, 0.1)',
+                    tension: 0.4,
+                    fill: true
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    title: { display: true, text: 'Profil température eau (indicatif - dépend du constructeur)' }
+                },
+                scales: {
+                    y: { min: 20, max: 60 }
+                }
+            }
+        });
+    }
+
+    const ctx3 = document.getElementById('hydraulicChart');
+    if (ctx3) {
+        new Chart(ctx3, {
+            type: 'bar',
+            data: {
+                labels: ['Débit interne/container', 'Débit interne total (58)'],
+                datasets: [{
+                    label: 'Débit (m³/h)',
+                    data: [70, 4060],
+                    backgroundColor: ['#3b82f6', '#10b981']
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    title: { display: true, text: 'Hydraulique HD5 (interne au container)' }
+                }
+            }
+        });
+    }
+
+    const ctx4 = document.getElementById('pueChart');
+    if (ctx4) {
+        new Chart(ctx4, {
+            type: 'doughnut',
+            data: {
+                labels: ['IT Load (~93.3%)', 'Dry coolers (~1.5%)', 'Pertes transfos (~4.4%)', 'Pertes MV (~0.9%)'],
+                datasets: [{
+                    data: [87700, 1392, 4110, 860],
+                    backgroundColor: ['#3b82f6', '#10b981', '#f59e0b', '#64748b']
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    title: { display: true, text: 'Breakdown PUE 1.072' },
+                    legend: { position: 'bottom' }
+                }
+            }
+        });
+    }
+
+    // Calculator
+    function calculate() {
+        const containers = parseInt(document.getElementById('calc-containers').value);
+        const power = parseInt(document.getElementById('calc-power').value);
+        const deltaT = parseInt(document.getElementById('calc-delta-t').value);
+        const miners = parseInt(document.getElementById('calc-miners').value);
+
+        // Hydraulic calculations (internal loops) - theoretical from Q = P / (1.16 * ΔT)
+        const heatKW = power * 0.99;
+        const flowContainer = heatKW / (1.16 * deltaT);
+        const flowTotal = flowContainer * containers;
+
+        // Electrical (aligned to HD5 nameplate)
+        const powerTotal = (containers * power) / 1000; // MW
+        const current = Math.round(2800 * (power / 1512)); // nameplate scaling
+        const mvLvTrafos = Math.ceil(containers / 2); // 2 containers per 3.75 MVA
+        const hvMvTrafos = '2×100 MVA';
+
+        // Thermal
+        const thermalMW = (containers * heatKW) / 1000;
+        const dryCoolerFansMW = (containers * 24) / 1000;
+
+        // Mining
+        const TH_PER_MINER = 473;
+        const hashrate = (containers * miners * TH_PER_MINER) / 1000000; // EH/s
+        const totalMiners = containers * miners;
+
+        // Update results
+        document.getElementById('result-flow-container').textContent = flowContainer.toFixed(1) + ' m³/h';
+        document.getElementById('result-flow-total').textContent = flowTotal.toFixed(0) + ' m³/h';
+        
+        document.getElementById('result-power-total').textContent = powerTotal.toFixed(1) + ' MW';
+        document.getElementById('result-current').textContent = current.toFixed(0) + ' A';
+        document.getElementById('result-transfos').textContent = mvLvTrafos;
+        document.getElementById('result-hvtrafos').textContent = hvMvTrafos;
+        
+        document.getElementById('result-thermal').textContent = thermalMW.toFixed(1) + ' MW';
+        document.getElementById('result-drycoolers').textContent = containers + ' (1:1)';
+        
+        document.getElementById('result-hashrate').textContent = hashrate.toFixed(2) + ' EH/s';
+        document.getElementById('result-total-miners').textContent = totalMiners.toLocaleString();
+    }
+
+    // Initial calculation
+    calculate();
+</script>
+
+
+
+
+</body></html>
