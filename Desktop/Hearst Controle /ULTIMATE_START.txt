@@ -1,0 +1,120 @@
+╔══════════════════════════════════════════════════════════════════╗
+║                                                                  ║
+║                  🚀 HEARST CONTROL v2.0 🚀                     ║
+║                                                                  ║
+║              MODE AUTONOME ULTIME - ONE-LINER                    ║
+║                                                                  ║
+╚══════════════════════════════════════════════════════════════════╝
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+⚡ COMMANDE ULTIME (tout en une seule ligne) :
+
+cd "/Users/adrienbeyondcrypto/Desktop/Hearst Control /Qatar-Dashboard" && ./GO.sh
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+
+📋 OU CLI INTERACTIVE (menu complet) :
+
+cd "/Users/adrienbeyondcrypto/Desktop/Hearst Control /Qatar-Dashboard" && ./CLI.sh
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+
+🎯 CE QUI VA SE PASSER :
+
+✅ Installation automatique des dépendances (backend + frontend)
+✅ Vérification et création des fichiers .env
+✅ Test de connexion Supabase
+✅ Libération automatique des ports 3000 et 3001
+✅ Détection des problèmes et réparation autonome
+✅ Lancement du backend (Express.js - port 3001)
+✅ Lancement du frontend (Next.js - port 3000)
+✅ Ouverture automatique dans le navigateur
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+
+⚠️  SI SUPABASE PAS ENCORE CONFIGURÉ (5 minutes) :
+
+1. Ouvrir : https://supabase.com/dashboard/project/tnnsfheflydiuhiduntn/sql
+
+2. Copier le SQL :
+   cd "/Users/adrienbeyondcrypto/Desktop/Hearst Control /Qatar-Dashboard"
+   pbcopy < supabase-init-multi-projects.sql
+
+3. Coller dans Supabase SQL Editor et cliquer RUN
+
+4. Désactiver RLS (Row Level Security) :
+   pbcopy < disable-rls.sql
+   → Coller et exécuter
+
+5. Créer l'utilisateur admin dans Supabase Auth :
+   Email : admin@hearstmining.com
+   Password : Admin123!Hearst
+
+6. Relancer : ./GO.sh
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+
+🔧 SCRIPTS AUTONOMES DISPONIBLES :
+
+./install.sh        → Installation complète autonome
+./GO.sh             → One-liner ultime (install + launch)
+./start-all.sh      → Démarrer backend + frontend
+./stop-all.sh       → Tout arrêter
+./auto-fix.sh       → Diagnostic et réparation automatique
+./verify-setup.sh   → Vérifier l'état complet
+./watch.sh          → Monitoring temps réel (5s refresh)
+./CLI.sh            → CLI interactive avec menu
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+
+📊 ARCHITECTURE MULTI-PROJETS :
+
+✅ Hearst Qatar         → 58 containers, 17,864 mineurs, 8.45 EH/s
+✅ Hearst Aquahash      → (planned) 15 containers, 4,620 mineurs
+✅ Login centralisé     → admin@hearstmining.com
+✅ Permissions granulaires → viewer, operator, manager, admin
+✅ Monitoring temps réel → Containers, mineurs, metrics
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+
+🌐 ACCÈS APRÈS LANCEMENT :
+
+Dashboard : http://localhost:3000
+API       : http://localhost:3001
+Login     : admin@hearstmining.com / Admin123!Hearst
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+
+📚 DOCUMENTATION COMPLÈTE :
+
+START_HERE.md                    → Guide principal
+QUICK_START.txt                  → Résumé rapide
+HEARST_CONTROL_ARCHITECTURE.md  → Architecture détaillée
+FLUX_AUTHENTIFICATION.md         → Système d'auth
+GUIDE_VISUEL.md                  → Guide avec liens cliquables
+README.txt                       → Ce fichier
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+
+🎯 RÉSUMÉ :
+
+1. Tout est prêt et automatisé à 100%
+2. Un seul script pour tout : ./GO.sh
+3. Si Supabase pas configuré, suivez START_HERE.md (5 min)
+4. Sinon, tout se lance automatiquement !
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+
+🚀 GO GO GO ! ./GO.sh 🚀
+

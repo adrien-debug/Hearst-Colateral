@@ -1,0 +1,123 @@
+╔══════════════════════════════════════════════════════════════════╗
+║                                                                  ║
+║               ⚡ SUPABASE - CONFIGURATION MAINTENANT ⚡          ║
+║                                                                  ║
+║              (Les onglets sont déjà ouverts !)                   ║
+║                                                                  ║
+╚══════════════════════════════════════════════════════════════════╝
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+⏱️  TEMPS ESTIMÉ : 5 MINUTES
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+
+📋 ÉTAPE 1/3 : EXÉCUTER LE SCRIPT SQL (2 minutes)
+
+   ✅ Onglet ouvert : Supabase SQL Editor
+   ✅ SQL déjà copié dans le presse-papier !
+
+   Action :
+   1. Dans l'onglet "SQL Editor" ouvert
+   2. Coller avec Cmd+V (le SQL est déjà copié)
+   3. Cliquer sur "RUN" en bas à droite ▶️
+   4. Attendre "Success" (15-20 secondes)
+
+   ✅ Vous venez de créer :
+      • Table projects (Hearst Qatar + Aquahash)
+      • Tables containers, miners, metrics
+      • Table user_project_access (permissions)
+      • Triggers et indexes
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+
+📋 ÉTAPE 2/3 : DÉSACTIVER RLS (1 minute)
+
+   Action :
+   1. Dans le même SQL Editor
+   2. Copier cette commande :
+
+      pbcopy < disable-rls.sql
+
+   3. Coller (Cmd+V) et RUN ▶️
+
+   Note : RLS sera réactivé en production
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+
+📋 ÉTAPE 3/3 : CRÉER L'UTILISATEUR ADMIN (2 minutes)
+
+   ✅ Onglet ouvert : Supabase Authentication
+
+   Action :
+   1. Dans l'onglet "Authentication > Users" ouvert
+   2. Cliquer sur "Add user" (bouton vert)
+   3. Choisir "Create new user"
+   4. Remplir :
+      • Email    : admin@hearstmining.com
+      • Password : Admin123!Hearst
+   5. Cocher "Auto Confirm User"
+   6. Cliquer "Create user"
+
+   ✅ Utilisateur créé ! (Les permissions projets sont auto-assignées)
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+
+🚀 LANCER L'APPLICATION
+
+   Une fois les 3 étapes terminées :
+
+   cd "/Users/adrienbeyondcrypto/Desktop/Hearst Control /Qatar-Dashboard"
+   ./GO.sh
+
+   Ou simplement :
+
+   ./start-all.sh
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+
+🎯 RÉSULTAT FINAL
+
+   Dashboard multi-projets accessible sur :
+   
+   🌐 http://localhost:3000
+   
+   Login :
+   • Email    : admin@hearstmining.com
+   • Password : Admin123!Hearst
+
+   Vous verrez :
+   ✅ Hearst Qatar (58 containers, 17,864 mineurs)
+   ✅ Hearst Aquahash (planned)
+   ✅ Monitoring temps réel
+   ✅ Metrics, alerts, activity logs
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+
+❓ BESOIN D'AIDE ?
+
+   • Guide complet : open START_HERE.md
+   • Résumé rapide : cat QUICK_START.txt
+   • CLI interactive : ./CLI.sh
+   • Vérifier état : ./verify-setup.sh
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+
+⚡ C'EST PARTI ! Les onglets sont ouverts, le SQL est copié ! ⚡
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+

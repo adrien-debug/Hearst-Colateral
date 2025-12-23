@@ -1,0 +1,25 @@
+{
+  "project": {
+    "name": "hearst-qatar-new",
+    "client": "Qatar Project",
+    "createdFrom": "Qatar-Dashboard",
+    "createdAt": "2025-12-23T22:28:40Z",
+    "version": "1.0.0"
+  },
+  "specs": {
+    "containers": 0,
+    "equipment": 0,
+    "hashrate": "TBD",
+    "power": "TBD",
+    "location": "TBD"
+  },
+  "status": "setup",
+  "notes": [
+    "Projet créé automatiquement depuis template Qatar Dashboard",
+    "TODO: Configurer Supabase (backend/.env)",
+    "TODO: Adapter le schéma database/init.sql",
+    "TODO: Personnaliser les controllers backend/controllers/",
+    "TODO: Adapter l'UI frontend/src/components/",
+    "TODO: Mettre à jour la documentation"
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "name": "@hearst-control/core",
+  "version": "1.0.0",
+  "description": "Code commun réutilisable pour tous les projets Hearst Control",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "hearst",
+    "mining",
+    "control",
+    "shared",
+    "core"
+  ],
+  "author": "Hearst Mining",
+  "license": "PROPRIETARY",
+  "dependencies": {
+    "@supabase/supabase-js": "^2.39.0",
+    "bcryptjs": "^2.4.3",
+    "jsonwebtoken": "^9.0.2"
+  }
+}
+

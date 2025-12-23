@@ -1,0 +1,289 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Qatar Project Dashboard API",
+    "description": "API de monitoring pour le projet minier Bitcoin au Qatar Project - Hearst Mining",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Hearst Mining",
+      "email": "api@hearst-mining.com"
+    },
+    "license": {
+      "name": "Proprietary",
+      "url": "https://github.com/adrien-debug/Hearst-Control/blob/main/LICENSE"
+    }
+  },
+  "servers": [
+    {
+      "url": "http://localhost:5000",
+      "description": "Serveur de développement"
+    },
+    {
+      "url": "https://api.hearst-mining.com",
+      "description": "Serveur de production"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Health",
+      "description": "Points de terminaison de santé"
+    },
+    {
+      "name": "Metrics",
+      "description": "Métriques globales du site"
+    },
+    {
+      "name": "Containers",
+      "description": "Gestion des containers ANTSPACE HD5"
+    },
+    {
+      "name": "Miners",
+      "description": "Gestion des mineurs S21XP Hydro"
+    },
+    {
+      "name": "Auth",
+      "description": "Authentification et autorisation"
+    }
+  ],
+  "paths": {
+    "/health": {
+      "get": {
+        "tags": ["Health"],
+        "summary": "Vérifier la santé de l'API",
+        "responses": {
+          "200": {
+            "description": "API fonctionnelle",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": { "type": "string", "example": "OK" },
+                    "timestamp": { "type": "string", "format": "date-time" },
+                    "service": { "type": "string", "example": "Qatar Project Dashboard API" },
+                    "version": { "type": "string", "example": "1.0.0" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/metrics/latest": {
+      "get": {
+        "tags": ["Metrics"],
+        "summary": "Récupérer les dernières métriques",
+        "responses": {
+          "200": {
+            "description": "Métriques récupérées avec succès",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MetricsResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/metrics/history": {
+      "get": {
+        "tags": ["Metrics"],
+        "summary": "Récupérer l'historique des métriques",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": { "type": "integer", "default": 100 }
+          },
+          {
+            "name": "hours",
+            "in": "query",
+            "schema": { "type": "integer", "default": 24 }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Historique récupéré"
+          }
+        }
+      }
+    },
+    "/api/containers": {
+      "get": {
+        "tags": ["Containers"],
+        "summary": "Liste tous les containers",
+        "responses": {
+          "200": {
+            "description": "Liste des containers",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContainersListResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/containers/{id}": {
+      "get": {
+        "tags": ["Containers"],
+        "summary": "Récupérer un container spécifique",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" },
+            "example": "C01"
+          }
+        ],
+        "responses": {
+          "200": { "description": "Container trouvé" },
+          "404": { "description": "Container non trouvé" }
+        }
+      },
+      "put": {
+        "tags": ["Containers"],
+        "summary": "Mettre à jour un container",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ContainerUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Container mis à jour" }
+        }
+      }
+    },
+    "/api/miners": {
+      "get": {
+        "tags": ["Miners"],
+        "summary": "Liste tous les mineurs",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "schema": { "type": "integer", "default": 1 }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": { "type": "integer", "default": 100 }
+          }
+        ],
+        "responses": {
+          "200": { "description": "Liste des mineurs" }
+        }
+      }
+    },
+    "/api/auth/login": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "Connexion utilisateur",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["email", "password"],
+                "properties": {
+                  "email": { "type": "string", "format": "email" },
+                  "password": { "type": "string", "format": "password" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Connexion réussie" },
+          "401": { "description": "Identifiants invalides" }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "MetricsResponse": {
+        "type": "object",
+        "properties": {
+          "success": { "type": "boolean" },
+          "data": {
+            "type": "object",
+            "properties": {
+              "total_hashrate_eh": { "type": "number", "example": 8.45 },
+              "total_power_mw": { "type": "number", "example": 102.37 },
+              "active_containers": { "type": "integer", "example": 58 },
+              "active_miners": { "type": "integer", "example": 17864 },
+              "avg_temperature_c": { "type": "number", "example": 65 },
+              "uptime_percent": { "type": "number", "example": 99.2 }
+            }
+          }
+        }
+      },
+      "ContainersListResponse": {
+        "type": "object",
+        "properties": {
+          "success": { "type": "boolean" },
+          "count": { "type": "integer" },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Container"
+            }
+          }
+        }
+      },
+      "Container": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer" },
+          "container_id": { "type": "string", "example": "C01" },
+          "status": { "type": "string", "enum": ["active", "maintenance", "offline"] },
+          "hashrate_th": { "type": "number" },
+          "power_consumption_kw": { "type": "number" },
+          "temperature_c": { "type": "number" },
+          "uptime_percent": { "type": "number" },
+          "miners_active": { "type": "integer" },
+          "location": { "type": "string" },
+          "transformer_id": { "type": "string" }
+        }
+      },
+      "ContainerUpdate": {
+        "type": "object",
+        "properties": {
+          "status": { "type": "string" },
+          "hashrate_th": { "type": "number" },
+          "power_consumption_kw": { "type": "number" },
+          "temperature_c": { "type": "number" }
+        }
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}
+
+

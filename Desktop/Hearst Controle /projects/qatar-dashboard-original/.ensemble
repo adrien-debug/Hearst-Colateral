@@ -1,0 +1,175 @@
+/**
+ * 🔧 CRÉATION [2025-12-23T00:00:00Z]
+ * 
+ * Fichier : .ensemble
+ * Auteur : Sonnet 4.5
+ * 
+ * Purpose : Système de gestion autonome des projets séparés
+ * Permet l'enregistrement automatique et le travail indépendant dans le même workspace
+ * 
+ * Modifications :
+ * - [2025-12-24] Correction de la structure pour compatibilité avec ensembleManager.js
+ * - Renommage monitored_projects → projects
+ * - Ajout des champs isolated, independent, root pour chaque projet
+ * - Restructuration des specs dans un sous-objet
+ * 
+ * Test suggéré : node backend/scripts/testEnsemble.js
+ */
+
+{
+  "ensemble": {
+    "version": "2.0.0",
+    "workspace": "Hearst Control - Multi-Projects Monitoring Platform",
+    "created": "2025-12-23",
+    "updated": "2025-12-24",
+    "purpose": "Centralized monitoring platform for multiple Hearst mining projects"
+  },
+  
+  "autonomy": {
+    "enabled": true,
+    "autoSave": {
+      "enabled": true,
+      "interval": 300,
+      "script": "backend/scripts/zottoSave.js",
+      "destinations": [
+        "exports/zotto/",
+        "backups/"
+      ]
+    },
+    "autoBackup": {
+      "enabled": true,
+      "interval": 3600,
+      "script": "backend/scripts/backup.js",
+      "retention": {
+        "hourly": 24,
+        "daily": 7,
+        "weekly": 4,
+        "monthly": 12
+      }
+    },
+    "refreshWatcher": {
+      "enabled": true,
+      "script": "backend/scripts/refreshWatcher.js",
+      "watchPaths": [
+        "backend/**/*.js",
+        "frontend/src/**/*.{ts,tsx}",
+        "database/**/*.sql"
+      ]
+    }
+  },
+
+  "projects": {
+    "qatar": {
+      "project_id": "QATAR-001",
+      "name": "Hearst Qatar Mining",
+      "status": "active",
+      "location": "Qatar",
+      "isolated": true,
+      "independent": true,
+      "root": "/Users/adrienbeyondcrypto/Desktop/Hearst Control /Qatar-Dashboard",
+      "specs": {
+        "containers": 58,
+        "miners": 17864,
+        "hashrate_eh": 8.45,
+        "power_mw": 102.37,
+        "container_type": "ANTSPACE HD5",
+        "miner_model": "S21XP Hydro"
+      }
+    },
+    "aquahash": {
+      "project_id": "AQUA-001",
+      "name": "Hearst Aquahash",
+      "status": "planned",
+      "location": "TBD",
+      "isolated": true,
+      "independent": true,
+      "root": null,
+      "specs": {
+        "containers": null,
+        "miners": null,
+        "hashrate_eh": null,
+        "power_mw": null
+      }
+    }
+  },
+  
+  "platform": {
+    "name": "Hearst Control",
+    "root": "/Users/adrienbeyondcrypto/Desktop/Hearst Control /Qatar-Dashboard",
+    "type": "centralized_monitoring",
+    "structure": {
+      "backend": "backend/",
+      "frontend": "frontend/",
+      "database": "database/",
+      "scripts": "backend/scripts/",
+      "exports": "exports/",
+      "backups": "backups/",
+      "logs": "logs/"
+    },
+    "gitignore": [
+      "node_modules/",
+      ".env",
+      "*.log",
+      "backups/",
+      "exports/zotto/"
+    ]
+  },
+
+  "separation": {
+    "rules": [
+      "Chaque projet doit avoir son propre workspace",
+      "Aucun import cross-project autorisé",
+      "Variables d'environnement isolées par projet",
+      "Logs séparés par projet",
+      "Backups séparés par projet"
+    ],
+    "isolation": {
+      "environment": true,
+      "dependencies": true,
+      "database": true,
+      "api": true
+    }
+  },
+
+  "recording": {
+    "system": "zottoSave",
+    "automatic": true,
+    "format": "JSON + timestamp",
+    "location": "exports/zotto/",
+    "includes": [
+      "project state",
+      "active sessions",
+      "recent changes",
+      "configuration snapshot",
+      "environment variables (masked)"
+    ]
+  },
+
+  "collaboration": {
+    "mode": "independent",
+    "sharedResources": [],
+    "communication": {
+      "type": "file-based",
+      "location": "logs/",
+      "format": "structured JSON logs"
+    }
+  },
+
+  "paths": {
+    "workspace": "/Users/adrienbeyondcrypto/Desktop/Hearst Control /Qatar-Dashboard",
+    "exports": "exports/zotto/",
+    "backups": "backups/",
+    "logs": "logs/",
+    "scripts": "backend/scripts/"
+  },
+
+  "metadata": {
+    "lastUpdated": "2025-12-24T00:00:00Z",
+    "managedBy": "Sonnet 4.5",
+    "autoManaged": true,
+    "architecture": "multi-project centralized monitoring",
+    "database": "supabase multi-tenant"
+  }
+}
+
+
