@@ -17,15 +17,12 @@ const nextConfig: NextConfig = {
     ],
   },
   
-  // Enable experimental features
-  experimental: {
-    // Enable Turbopack for faster builds
-    turbo: {
-      rules: {
-        '*.svg': {
-          loaders: ['@svgr/webpack'],
-          as: '*.js',
-        },
+  // Turbopack configuration
+  turbopack: {
+    rules: {
+      '*.svg': {
+        loaders: ['@svgr/webpack'],
+        as: '*.js',
       },
     },
   },
